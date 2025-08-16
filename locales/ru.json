@@ -1,0 +1,9 @@
+{
+  "welcome": "Добро пожаловать",
+  "login": "Войти",
+  "signup": "Регистрация",
+  "dashboard": "Панель",
+  "email": "Email",
+  "password": "Пароль",
+  "logout": "Выход"
+}

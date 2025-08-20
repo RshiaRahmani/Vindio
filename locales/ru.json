@@ -5,5 +5,15 @@
   "dashboard": "Панель",
   "email": "Email",
   "password": "Пароль",
-  "logout": "Выход"
+  "logout": "Выход",
+  "name": "Полное имя",
+  "confirmPassword": "Подтвердите пароль",
+  "forgotPassword": "Забыли пароль?",
+  "terms": "Условия использования",
+  "privacy": "Политика конфиденциальности",
+  "acceptTerms": "Я согласен с условиями и политикой",
+  "alreadyHaveAccount": "Уже есть аккаунт?",
+  "dontHaveAccount": "Нет аккаунта?",
+  "continueWithGoogle": "Продолжить с Google",
+  "rememberPassword": "Помните пароль?"
 }

@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     '@vueuse/nuxt'
   ],
   css: ['~/assets/css/main.css'],
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
   colorMode: {
     classSuffix: '',
     preference: 'system',

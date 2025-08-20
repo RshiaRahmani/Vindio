@@ -5,5 +5,15 @@
   "dashboard": "Kontrol Paneli",
   "email": "E-posta",
   "password": "Parola",
-  "logout": "Çıkış"
+  "logout": "Çıkış",
+  "name": "Ad Soyad",
+  "confirmPassword": "Parolayı Onayla",
+  "forgotPassword": "Parolanızı mı unuttunuz?",
+  "terms": "Kullanım Şartları",
+  "privacy": "Gizlilik Politikası",
+  "acceptTerms": "Şartları ve koşulları kabul ediyorum",
+  "alreadyHaveAccount": "Zaten hesabınız var mı?",
+  "dontHaveAccount": "Hesabınız yok mu?",
+  "continueWithGoogle": "Google ile devam et",
+  "rememberPassword": "Parolanızı hatırlıyor musunuz?"
 }

@@ -349,7 +349,7 @@ declare global {
   const useThrottle: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useThrottle']
   const useThrottleFn: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useThrottleFn']
   const useThrottledRefHistory: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useThrottledRefHistory']
-  const useTimeAgo: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeAgo']
+  const useTimeAgo: typeof import('../../composables/useTimeAgo')['useTimeAgo']
   const useTimeout: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeout']
   const useTimeoutFn: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeoutFn']
   const useTimeoutPoll: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeoutPoll']
@@ -755,7 +755,7 @@ declare module 'vue' {
     readonly useThrottle: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useThrottle']>
     readonly useThrottleFn: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useThrottleFn']>
     readonly useThrottledRefHistory: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useThrottledRefHistory']>
-    readonly useTimeAgo: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeAgo']>
+    readonly useTimeAgo: UnwrapRef<typeof import('../../composables/useTimeAgo')['useTimeAgo']>
     readonly useTimeout: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeout']>
     readonly useTimeoutFn: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeoutFn']>
     readonly useTimeoutPoll: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useTimeoutPoll']>

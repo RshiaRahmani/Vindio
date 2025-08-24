@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Restart Nuxt dev with tailwind cssPath",
+			"type": "shell",
+			"command": "pnpm dev",
+			"isBackground": true,
+			"group": "build",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"args": []
+		}
+	]
+}

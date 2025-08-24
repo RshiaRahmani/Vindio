@@ -97,16 +97,6 @@
             {{$t('login')}}
           </button>
 
-          <!-- Minimal Divider -->
-          <div class="relative my-4">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-200 dark:border-gray-600"></div>
-            </div>
-            <div class="relative flex justify-center text-xs">
-              <span class="px-2 bg-white dark:bg-gray-800 text-gray-500">or</span>
-            </div>
-          </div>
-
           <!-- Google Sign In -->
           <button 
             type="button"

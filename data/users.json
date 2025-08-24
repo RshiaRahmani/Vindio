@@ -1,0 +1,30 @@
+{
+  "userProfile": {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1 (555) 123-4567",
+    "location": "San Francisco, CA",
+    "bio": "Full-stack developer with 5+ years of experience building scalable web applications. Passionate about clean code and innovative solutions.",
+    "company": "Tech Corp Inc.",
+    "position": "Senior Developer",
+    "experience": "5+ years",
+    "education": "Computer Science, Stanford University",
+    "website": "https://johndoe.dev",
+    "github": "https://github.com/johndoe",
+    "linkedin": "https://linkedin.com/in/johndoe",
+    "roles": ["Developer", "Team Lead", "Mentor"],
+    "skills": [
+      "JavaScript", "TypeScript", "Vue.js", "React", "Node.js", 
+      "Python", "Docker", "AWS", "Git", "MongoDB"
+    ],
+    "interests": [
+      "Machine Learning", "Open Source", "Blockchain", "IoT", "DevOps"
+    ]
+  },
+  "dashboardStats": {
+    "totalProjects": 12,
+    "activeTasks": 8,
+    "messages": 24,
+    "teamMembers": 6
+  }
+}

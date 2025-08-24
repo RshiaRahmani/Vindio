@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt'
   ],
   css: ['~/assets/css/main.css'],
+  compatibilityDate: '2025-08-24',
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },

@@ -1,5 +1,5 @@
 import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { tmpdir } from 'node:os';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createError, getQuery as getQuery$1, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, setCookie, getResponseStatusText } from 'file:///Users/arshiarah/Documents/GitHub/Vindio/node_modules/.pnpm/h3@1.15.4/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createError, getQuery as getQuery$1, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, setCookie, getMethod, getCookie, getResponseStatusText } from 'file:///Users/arshiarah/Documents/GitHub/Vindio/node_modules/.pnpm/h3@1.15.4/node_modules/h3/dist/index.mjs';
 import { Server } from 'node:http';
 import { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
@@ -1540,12 +1540,14 @@ async function getIslandContext(event) {
 
 const _lazy_M1YnDW = () => Promise.resolve().then(function () { return login_post$1; });
 const _lazy_sJiJQS = () => Promise.resolve().then(function () { return register_post$1; });
+const _lazy_CJix7b = () => Promise.resolve().then(function () { return profile$1; });
 const _lazy_ffrObw = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '', handler: _f8AliJ, lazy: false, middleware: true, method: undefined },
   { route: '/api/auth/login', handler: _lazy_M1YnDW, lazy: true, middleware: false, method: "post" },
   { route: '/api/auth/register', handler: _lazy_sJiJQS, lazy: true, middleware: false, method: "post" },
+  { route: '/api/user/profile', handler: _lazy_CJix7b, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_ffrObw, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_ffrObw, lazy: true, middleware: false, method: undefined }
@@ -1878,6 +1880,23 @@ const styles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 
 const users = [];
 let idCounter = 1;
+const initializeUsers = async () => {
+  if (users.length === 0) {
+    const adminPasswordHash = await bcrypt.hash("admin", 10);
+    users.push({
+      id: idCounter++,
+      email: "admin@admin.com",
+      passwordHash: adminPasswordHash
+    });
+    const testPasswordHash = await bcrypt.hash("test123", 10);
+    users.push({
+      id: idCounter++,
+      email: "test@vindio.com",
+      passwordHash: testPasswordHash
+    });
+  }
+};
+initializeUsers();
 const findUser = (email) => users.find((u) => u.email === email);
 const addUser = async (email, password) => {
   const passwordHash = await bcrypt.hash(password, 10);
@@ -1931,6 +1950,50 @@ const register_post = defineEventHandler(async (event) => {
 const register_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: register_post
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const profile = defineEventHandler(async (event) => {
+  const method = getMethod(event);
+  if (method === "GET") {
+    const token = getCookie(event, "auth_token");
+    if (!token) throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+    try {
+      const payload = jwt.verify(token, useRuntimeConfig().jwtSecret);
+      return {
+        id: payload.sub,
+        name: "John Doe",
+        email: payload.email,
+        phone: "+1 (555) 123-4567",
+        location: "San Francisco, CA",
+        bio: "Passionate full-stack developer with 3+ years of experience building scalable web applications. I love working with modern technologies and contributing to open source projects.",
+        skills: ["JavaScript", "Vue.js", "Node.js", "Python", "Docker", "AWS"],
+        avatar: null
+      };
+    } catch (error) {
+      throw createError({ statusCode: 401, statusMessage: "Invalid token" });
+    }
+  }
+  if (method === "PUT") {
+    const token = getCookie(event, "auth_token");
+    if (!token) throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+    try {
+      const payload = jwt.verify(token, useRuntimeConfig().jwtSecret);
+      const body = await readBody(event);
+      return {
+        success: true,
+        message: "Profile updated successfully",
+        data: body
+      };
+    } catch (error) {
+      throw createError({ statusCode: 401, statusMessage: "Invalid token" });
+    }
+  }
+  throw createError({ statusCode: 405, statusMessage: "Method not allowed" });
+});
+
+const profile$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: profile
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {

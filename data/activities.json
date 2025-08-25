@@ -3,7 +3,7 @@
     {
       "id": 1,
       "user": {
-        "name": "John Smith",
+        "name": "Bruce Wayne",
         "initials": "JS",
         "avatar": null,
         "color": "blue"
@@ -15,7 +15,7 @@
     {
       "id": 2,
       "user": {
-        "name": "Sarah Adams",
+        "name": "sponge bob",
         "initials": "SA",
         "avatar": null,
         "color": "green"
@@ -27,7 +27,7 @@
     {
       "id": 3,
       "user": {
-        "name": "Mike Johnson",
+        "name": "Rick Sanchez",
         "initials": "MJ",
         "avatar": null,
         "color": "purple"

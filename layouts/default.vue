@@ -4,7 +4,7 @@
     <header class="glass-container mx-10 mt-4 rounded-2xl p-4 backdrop-blur-lg">
       <div class="flex flex-wrap gap-4 items-center justify-between">
         <div class="flex items-center gap-4">
-          <NuxtLink to="/" class="font-bold text-xl text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{$t('welcome')}}</NuxtLink>
+          <NuxtLink to="/" class="font-bold text-xl text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Vindio</NuxtLink>
           <template v-if="authed">
             <NuxtLink to="/dashboard" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{$t('dashboard')}}</NuxtLink>
             <NuxtLink to="/profile" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{{$t('profile')}}</NuxtLink>

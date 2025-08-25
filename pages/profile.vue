@@ -11,23 +11,6 @@
     <div class="relative z-10 max-w-6xl mx-auto p-6 space-y-8">
       <!-- Hero Profile Section with Geometric Design -->
       <div class="relative overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-[3rem] border border-white/30 dark:border-gray-700/30 shadow-2xl">
-        <!-- Abstract Background Pattern -->
-        <div class="absolute inset-0 opacity-20">
-          <svg class="w-full h-full" viewBox="0 0 600 400" fill="none">
-            <path d="M0 200L75 150L150 250L225 100L300 300L375 50L450 250L525 150L600 200V400H0V200Z" fill="url(#profileGradient1)"/>
-            <path d="M0 250L100 200L200 300L300 150L400 350L500 100L600 250V400H0V250Z" fill="url(#profileGradient2)" opacity="0.7"/>
-            <defs>
-              <linearGradient id="profileGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:rgb(71, 85, 105);stop-opacity:0.3" />
-                <stop offset="100%" style="stop-color:rgb(100, 116, 139);stop-opacity:0.1" />
-              </linearGradient>
-              <linearGradient id="profileGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:rgb(59, 130, 246);stop-opacity:0.3" />
-                <stop offset="100%" style="stop-color:rgb(71, 85, 105);stop-opacity:0.1" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
 
         <div class="relative p-8">
           <div class="flex flex-col lg:flex-row items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-12">
@@ -40,8 +23,8 @@
                 </div>
                 
                 <!-- Floating Elements -->
-                <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl shadow-lg animate-bounce"></div>
-                <div class="absolute -bottom-3 -left-3 w-6 h-6 bg-gradient-to-br from-slate-400 to-gray-500 rounded-lg shadow-lg animate-pulse"></div>
+                <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl shadow-lg "></div>
+                <div class="absolute -bottom-1 -left-2 w-7 h-7 bg-gradient-to-br from-slate-400 to-gray-500 rounded-lg shadow-lg "></div>
                 
                 <!-- Edit Button -->
                 <button class="absolute bottom-2 right-2 p-3 bg-gradient-to-br from-slate-500 to-gray-600 rounded-2xl text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">

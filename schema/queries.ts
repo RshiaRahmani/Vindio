@@ -24,7 +24,13 @@ export class DatabaseQueries {
       .eq('id', userId)
       .single()
 
-    if (error) throw error
+    if (error) {
+      // If no rows found, return null instead of throwing error
+      if (error.code === 'PGRST116' || error.details === 'The result contains 0 rows') {
+        return null
+      }
+      throw error
+    }
     return data
   }
 

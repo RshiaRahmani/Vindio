@@ -3,6 +3,7 @@
   "login": "Giriş Yap",
   "signup": "Kayıt Ol",
   "dashboard": "Kontrol Paneli",
+  "profile": "Profil",
   "email": "E-posta",
   "password": "Parola",
   "logout": "Çıkış",
@@ -15,5 +16,7 @@
   "alreadyHaveAccount": "Zaten hesabınız var mı?",
   "dontHaveAccount": "Hesabınız yok mu?",
   "continueWithGoogle": "Google ile devam et",
-  "rememberPassword": "Parolanızı hatırlıyor musunuz?"
+  "rememberPassword": "Parolanızı hatırlıyor musunuz?",
+  "editProfile": "Profili Düzenle",
+  "saveChanges": "Değişiklikleri Kaydet"
 }

@@ -3,6 +3,7 @@
   "login": "Войти",
   "signup": "Регистрация",
   "dashboard": "Панель",
+  "profile": "Профиль",
   "email": "Email",
   "password": "Пароль",
   "logout": "Выход",
@@ -15,5 +16,7 @@
   "alreadyHaveAccount": "Уже есть аккаунт?",
   "dontHaveAccount": "Нет аккаунта?",
   "continueWithGoogle": "Продолжить с Google",
-  "rememberPassword": "Помните пароль?"
+  "rememberPassword": "Помните пароль?",
+  "editProfile": "Редактировать профиль",
+  "saveChanges": "Сохранить изменения"
 }

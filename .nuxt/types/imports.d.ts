@@ -38,6 +38,7 @@ declare global {
   const defineNuxtLink: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-link')['defineNuxtLink']
   const defineNuxtPlugin: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/nuxt')['defineNuxtPlugin']
   const defineNuxtRouteMiddleware: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/router')['defineNuxtRouteMiddleware']
+  const definePageMeta: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/pages/runtime/composables')['definePageMeta']
   const definePayloadPlugin: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/nuxt')['definePayloadPlugin']
   const definePayloadReducer: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/payload')['definePayloadReducer']
   const definePayloadReviver: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/payload')['definePayloadReviver']
@@ -181,7 +182,7 @@ declare global {
   const useClipboard: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useClipboard']
   const useClipboardItems: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useClipboardItems']
   const useCloned: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useCloned']
-  const useColorMode: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useColorMode']
+  const useColorMode: typeof import('../../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.3.5/node_modules/@nuxtjs/color-mode/dist/runtime/composables')['useColorMode']
   const useConfirmDialog: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useConfirmDialog']
   const useCookie: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/cookie')['useCookie']
   const useCountdown: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useCountdown']
@@ -238,6 +239,7 @@ declare global {
   const useLastChanged: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useLastChanged']
   const useLazyAsyncData: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/asyncData')['useLazyAsyncData']
   const useLazyFetch: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/fetch')['useLazyFetch']
+  const useLink: typeof import('../../node_modules/.pnpm/vue-router@4.5.1_vue@3.5.18_typescript@5.9.2_/node_modules/vue-router')['useLink']
   const useLoadingIndicator: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/loading-indicator')['useLoadingIndicator']
   const useLocalStorage: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useLocalStorage']
   const useMagicKeys: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useMagicKeys']
@@ -257,6 +259,7 @@ declare global {
   const useNow: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useNow']
   const useNuxtApp: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/nuxt')['useNuxtApp']
   const useNuxtData: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/asyncData')['useNuxtData']
+  const useNuxtDevTools: typeof import('../../node_modules/.pnpm/@nuxt+devtools@2.6.2_vite@7.1.2_@types+node@24.3.0_jiti@2.5.1_terser@5.43.1_yaml@2.8.1__vue@3.5.18_typescript@5.9.2_/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']
   const useObjectUrl: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useObjectUrl']
   const useOffsetPagination: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useOffsetPagination']
   const useOnline: typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useOnline']
@@ -447,6 +450,7 @@ declare module 'vue' {
     readonly defineNuxtLink: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-link')['defineNuxtLink']>
     readonly defineNuxtPlugin: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/nuxt')['defineNuxtPlugin']>
     readonly defineNuxtRouteMiddleware: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/router')['defineNuxtRouteMiddleware']>
+    readonly definePageMeta: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/pages/runtime/composables')['definePageMeta']>
     readonly definePayloadPlugin: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/nuxt')['definePayloadPlugin']>
     readonly definePayloadReducer: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/payload')['definePayloadReducer']>
     readonly definePayloadReviver: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/payload')['definePayloadReviver']>
@@ -590,7 +594,7 @@ declare module 'vue' {
     readonly useClipboard: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useClipboard']>
     readonly useClipboardItems: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useClipboardItems']>
     readonly useCloned: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useCloned']>
-    readonly useColorMode: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useColorMode']>
+    readonly useColorMode: UnwrapRef<typeof import('../../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.3.5/node_modules/@nuxtjs/color-mode/dist/runtime/composables')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useConfirmDialog']>
     readonly useCookie: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/cookie')['useCookie']>
     readonly useCountdown: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useCountdown']>
@@ -647,6 +651,7 @@ declare module 'vue' {
     readonly useLastChanged: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useLastChanged']>
     readonly useLazyAsyncData: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/asyncData')['useLazyAsyncData']>
     readonly useLazyFetch: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/fetch')['useLazyFetch']>
+    readonly useLink: UnwrapRef<typeof import('../../node_modules/.pnpm/vue-router@4.5.1_vue@3.5.18_typescript@5.9.2_/node_modules/vue-router')['useLink']>
     readonly useLoadingIndicator: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/loading-indicator')['useLoadingIndicator']>
     readonly useLocalStorage: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useLocalStorage']>
     readonly useMagicKeys: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useMagicKeys']>
@@ -666,6 +671,7 @@ declare module 'vue' {
     readonly useNow: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useNow']>
     readonly useNuxtApp: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/nuxt')['useNuxtApp']>
     readonly useNuxtData: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/composables/asyncData')['useNuxtData']>
+    readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/.pnpm/@nuxt+devtools@2.6.2_vite@7.1.2_@types+node@24.3.0_jiti@2.5.1_terser@5.43.1_yaml@2.8.1__vue@3.5.18_typescript@5.9.2_/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
     readonly useObjectUrl: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useObjectUrl']>
     readonly useOffsetPagination: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useOffsetPagination']>
     readonly useOnline: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.6.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useOnline']>

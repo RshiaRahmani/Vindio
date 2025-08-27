@@ -3,6 +3,7 @@
   "login": "Login",
   "signup": "Sign Up",
   "dashboard": "Dashboard",
+  "profile": "Profile",
   "email": "Email",
   "password": "Password",
   "logout": "Logout",
@@ -15,5 +16,7 @@
   "alreadyHaveAccount": "Already have an account?",
   "dontHaveAccount": "Don't have an account?",
   "continueWithGoogle": "Continue with Google",
-  "rememberPassword": "Remember your password?"
+  "rememberPassword": "Remember your password?",
+  "editProfile": "Edit Profile",
+  "saveChanges": "Save Changes"
 }

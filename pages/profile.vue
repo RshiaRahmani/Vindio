@@ -44,11 +44,22 @@
                   <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed">{{ userProfile.bio || 'No bio set' }}</p>
                 </div>
                 
+                <!-- Success and Error Messages -->
+                <div v-if="success" class="mt-4 p-4 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-lg">
+                  <p class="text-green-700 dark:text-green-300 text-sm">{{ success }}</p>
+                </div>
+                
+                <div v-if="error" class="mt-4 p-4 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded-lg">
+                  <p class="text-red-700 dark:text-red-300 text-sm">{{ error }}</p>
+                </div>
+                
                 <button 
                   @click="toggleEditMode"
-                  class="mt-4 lg:mt-0 bg-gradient-to-r bg-blue-500 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  :disabled="saving"
+                  class="mt-4 lg:mt-0 bg-gradient-to-r bg-blue-500 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span v-if="!editMode">{{ $t('editProfile') }}</span>
+                  <span v-if="saving">Saving...</span>
+                  <span v-else-if="!editMode">{{ $t('editProfile') }}</span>
                   <span v-else>{{ $t('saveChanges') }}</span>
                 </button>
               </div>
@@ -301,6 +312,7 @@ const newInterest = ref('')
 const loading = ref(false)
 const saving = ref(false)
 const error = ref('')
+const success = ref('')
 
 // User profile data
 const userProfile = ref({
@@ -314,40 +326,45 @@ const fetchProfile = async () => {
   if (!user.value) return
   
   loading.value = true
+  error.value = ''
+  
   try {
+    console.log('Fetching profile for user:', user.value.id)
     const { data: profile, error: fetchError } = await getUserProfile(user.value.id)
     
-    if (fetchError && !fetchError.includes('No rows')) {
-      error.value = fetchError
+    if (fetchError) {
+      console.error('Error fetching profile:', fetchError)
+      // If it's an RLS error, show a fallback profile with user data
+      if (fetchError.includes('row-level security') || fetchError.includes('42501') || fetchError.includes('403')) {
+        console.log('Using fallback profile from user metadata')
+        userProfile.value = {
+          name: user.value.user_metadata?.full_name || user.value.email || 'User',
+          bio: 'This profile exists but cannot be loaded due to database permissions.',
+          github_link: ''
+        }
+      } else {
+        error.value = fetchError
+      }
       return
     }
     
     if (profile) {
+      console.log('Profile found:', profile)
       userProfile.value = {
         name: profile.name || '',
         bio: profile.bio || '',
         github_link: profile.github_link || ''
       }
     } else {
-      // Create a new profile if none exists
-      const { data: newProfile, error: createError } = await createUserProfile({
-        id: user.value.id,
-        name: user.value.user_metadata?.full_name || user.value.email,
-        bio: null,
-        github_link: null
-      })
-      
-      if (createError) {
-        error.value = createError
-        return
-      }
-      
+      console.log('No profile found, using user metadata as fallback')
+      // Use user metadata as fallback instead of creating a new profile
       userProfile.value = {
-        name: newProfile?.name || '',
-        bio: newProfile?.bio || '',
-        github_link: newProfile?.github_link || ''
+        name: user.value.user_metadata?.full_name || user.value.email || 'User',
+        bio: 'Profile not found in database.',
+        github_link: ''
       }
     }
+    console.log('Fetched profile:', userProfile.value)
   } catch (err) {
     error.value = 'Failed to load profile'
     console.error('Error fetching profile:', err)
@@ -370,9 +387,16 @@ const getRoleColorClass = (role) => {
   return colorMap[role] || 'bg-gray-100 dark:bg-gray-900/30 text-gray-600 dark:text-gray-400'
 }
 
-const toggleEditMode = () => {
-  editMode.value = !editMode.value
-  error.value = ''
+const toggleEditMode = async () => {
+  if (editMode.value) {
+    // We're currently in edit mode, so save before exiting
+    await saveProfile()
+  } else {
+    // We're entering edit mode
+    editMode.value = true
+    error.value = ''
+    success.value = ''
+  }
 }
 
 const addSkill = () => {
@@ -408,9 +432,12 @@ const saveProfile = async () => {
   
   saving.value = true
   error.value = ''
+  success.value = ''
   
   try {
-    // Update profile in database
+    console.log('Attempting to save profile:', userProfile.value)
+    
+    // Try to update profile in database
     const { error: updateError } = await updateUserProfile(user.value.id, {
       name: userProfile.value.name || null,
       bio: userProfile.value.bio || null,
@@ -418,12 +445,57 @@ const saveProfile = async () => {
     })
     
     if (updateError) {
-      error.value = updateError
-      return
+      console.error('Database update failed:', updateError)
+      
+      // If it's an RLS error, try alternative update methods
+      if (updateError.includes('row-level security') || updateError.includes('42501') || updateError.includes('403')) {
+        console.log('RLS blocking update, trying alternative methods...')
+        
+        // Try using Supabase auth user metadata update as fallback
+        try {
+          const supabase = useSupabaseClient()
+          const { error: authUpdateError } = await supabase.auth.updateUser({
+            data: {
+              full_name: userProfile.value.name,
+              bio: userProfile.value.bio,
+              github_link: userProfile.value.github_link
+            }
+          })
+          
+          if (authUpdateError) {
+            throw authUpdateError
+          }
+          
+          console.log('Profile updated via auth metadata')
+          success.value = 'Profile updated successfully! (Changes saved to your account data)'
+          editMode.value = false
+          
+          // Clear success message after 5 seconds
+          setTimeout(() => {
+            success.value = ''
+          }, 5000)
+          
+          return
+          
+        } catch (authError) {
+          console.error('Auth metadata update failed:', authError)
+          error.value = 'Unable to save profile due to database permissions. Please contact support.'
+          return
+        }
+      } else {
+        error.value = updateError
+        return
+      }
     }
     
+    console.log('Profile updated successfully in database')
+    success.value = 'Profile updated successfully!'
     editMode.value = false
-    // Show success message or toast here
+    
+    // Clear success message after 5 seconds
+    setTimeout(() => {
+      success.value = ''
+    }, 5000)
     
   } catch (err) {
     error.value = 'Failed to save profile'

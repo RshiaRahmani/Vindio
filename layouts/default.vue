@@ -33,7 +33,14 @@ const toggleColorMode = () => {
 }
 const localeCookie = useCookie('locale')
 const locale = computed({ get:()=> localeCookie.value || 'en', set:v=> (localeCookie.value=v) })
-const token = useCookie('auth_token')
-const authed = computed(()=>!!token.value)
-const logout = () => { token.value=null; navigateTo('/login') }
+
+// Use Supabase authentication instead of custom token
+const user = useSupabaseUser()
+const authed = computed(() => !!user.value)
+
+// Use Supabase logout
+const { signOut } = useAuth()
+const logout = async () => {
+  await signOut()
+}
 </script>

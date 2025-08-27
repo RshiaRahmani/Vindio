@@ -56,20 +56,28 @@
 
 <script setup>
 const { $t } = useNuxtApp()
+const { resetPassword } = useAuth()
+
 const email = ref('')
 const error = ref('')
 const success = ref(false)
 const loading = ref(false)
 
 const submit = async () => {
+  if (loading.value) return
+  
   error.value = ''
   success.value = false
   loading.value = true
   
   try {
-    // TODO: Implement password reset API
-    await new Promise(resolve => setTimeout(resolve, 2000)) // Simulate API call
-    success.value = true
+    const { data, error: authError } = await resetPassword(email.value)
+    
+    if (authError) {
+      error.value = authError
+    } else {
+      success.value = true
+    }
   } catch (err) {
     error.value = 'Failed to send reset email. Please try again.'
   } finally {

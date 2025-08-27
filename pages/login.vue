@@ -92,9 +92,17 @@
           <!-- Compact Login Button -->
           <button 
             type="submit"
-            class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            :disabled="loading"
+            class="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:transform-none"
           >
-            {{$t('login')}}
+            <span v-if="loading" class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Signing in...
+            </span>
+            <span v-else>{{$t('login')}}</span>
           </button>
 
           <!-- Minimal Divider -->
@@ -110,8 +118,9 @@
           <!-- Google Sign In -->
           <button 
             type="button"
-            @click="signInWithGoogle"
-            class="w-full bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 py-3 rounded-xl font-medium border border-gray-200 dark:border-gray-600 transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 flex items-center justify-center space-x-2"
+            @click="handleGoogleSignIn"
+            :disabled="loading"
+            class="w-full bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:bg-gray-100 dark:disabled:bg-gray-800 text-gray-700 dark:text-gray-200 py-3 rounded-xl font-medium border border-gray-200 dark:border-gray-600 transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 flex items-center justify-center space-x-2 disabled:cursor-not-allowed disabled:transform-none"
           >
             <svg class="w-4 h-4" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -140,9 +149,22 @@
 
 <script setup>
 const { $t } = useNuxtApp()
+const { signIn, signInWithGoogle } = useAuth()
+const route = useRoute()
+
 const email = ref('')
 const password = ref('')
 const error = ref('')
+const loading = ref(false)
+
+// Check for OAuth errors in query params
+onMounted(() => {
+  if (route.query.error === 'oauth-failed') {
+    error.value = 'OAuth authentication failed. Please try again.'
+  } else if (route.query.error === 'callback-failed') {
+    error.value = 'Authentication callback failed. Please try again.'
+  }
+})
 
 // Language selector
 const selectedLocale = useCookie('locale', { default: () => 'en' })
@@ -157,28 +179,69 @@ const changeLocale = () => {
 }
 
 const submit = async () => {
+  if (loading.value) return
+  
   error.value = ''
+  loading.value = true
+  
   try {
-    const { token } = await $fetch('/api/auth/login', { 
-      method: 'POST', 
-      body: { email: email.value, password: password.value }
-    })
-    useCookie('auth_token', { maxAge: 60*60*24*7 }).value = token
-    navigateTo('/dashboard')
-  } catch (err) { 
-    error.value = 'Invalid credentials. Please try again.' 
+    const { data, error: authError } = await signIn(email.value, password.value)
+    
+    if (authError) {
+      error.value = authError
+    } else if (data?.user) {
+      // Login successful, wait for session to be established
+      const supabase = useSupabaseClient()
+      
+      // Wait for session to be available
+      let sessionCheck = 0
+      while (sessionCheck < 10) {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session) {
+          console.log('Session established, redirecting to dashboard')
+          await navigateTo('/dashboard')
+          return
+        }
+        await new Promise(resolve => setTimeout(resolve, 200))
+        sessionCheck++
+      }
+      
+      // Fallback redirect if session check fails
+      await navigateTo('/dashboard')
+    }
+  } catch (err) {
+    error.value = 'An unexpected error occurred. Please try again.'
+  } finally {
+    loading.value = false
   }
 }
 
-const signInWithGoogle = () => {
-  // TODO: Implement Google OAuth
-  console.log('Google sign in clicked')
-  // For now, just show an alert
-  alert('Google Sign In - To be implemented')
+const handleGoogleSignIn = async () => {
+  if (loading.value) return
+  
+  error.value = ''
+  loading.value = true
+  
+  try {
+    const { error: authError } = await signInWithGoogle()
+    
+    if (authError) {
+      error.value = authError
+    }
+    // Note: Google OAuth will redirect automatically, so no need to handle success here
+  } catch (err) {
+    error.value = 'Google sign in failed. Please try again.'
+  } finally {
+    loading.value = false
+  }
 }
 
-onMounted(() => { 
-  if (useCookie('auth_token').value) navigateTo('/dashboard') 
+// Check if user is already logged in
+const user = useSupabaseUser()
+watch(user, (newUser) => {
+  if (newUser) {
+    navigateTo('/dashboard')
+  }
 })
 
 definePageMeta({ layout: false }) // Use no layout for full-screen design

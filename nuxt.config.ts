@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
+    '@nuxtjs/supabase'
   ],
   css: ['~/assets/css/main.css'],
   app: {
@@ -19,5 +20,25 @@ export default defineNuxtConfig({
     classPrefix: '',
     storageKey: 'nuxt-color-mode'
   },
-  runtimeConfig: { jwtSecret: process.env.JWT_SECRET || 'dev-secret' }
+  supabase: {
+    url: process.env.SUPABASE_URL,
+    key: process.env.SUPABASE_ANON_KEY,
+    redirectOptions: {
+      login: '/login',
+      callback: '/auth/callback',
+      exclude: ['/', '/signup', '/forgot-password', '/auth/callback']
+    },
+    cookieOptions: {
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      sameSite: 'lax',
+      secure: false // Set to false for localhost development
+    }
+  },
+  runtimeConfig: {
+    jwtSecret: process.env.JWT_SECRET || 'dev-secret',
+    public: {
+      supabaseUrl: process.env.SUPABASE_URL,
+      supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
+    }
+  }
 })

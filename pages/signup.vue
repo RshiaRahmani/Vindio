@@ -110,15 +110,40 @@
 
           <!-- Error Message -->
           <div v-if="error" class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-3 py-2 rounded-lg text-sm">
-            {{error}}
+            <div v-if="error.includes('already exists')" class="flex flex-col space-y-2">
+              <p>{{ error }}</p>
+              <NuxtLink 
+                to="/login" 
+                class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium underline inline-flex items-center space-x-1"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                </svg>
+                <span>Go to Login Page</span>
+              </NuxtLink>
+            </div>
+            <p v-else>{{ error }}</p>
+          </div>
+
+          <!-- Success Message -->
+          <div v-if="success" class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 px-3 py-2 rounded-lg text-sm">
+            {{success}}
           </div>
 
           <!-- Compact Signup Button -->
           <button 
             type="submit"
-            class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            :disabled="loading"
+            class="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:transform-none"
           >
-            {{$t('signup')}}
+            <span v-if="loading" class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Creating account...
+            </span>
+            <span v-else>{{$t('signup')}}</span>
           </button>
 
           <!-- Minimal Divider -->
@@ -134,8 +159,9 @@
           <!-- Google Sign Up -->
           <button 
             type="button"
-            @click="signUpWithGoogle"
-            class="w-full bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 py-3 rounded-xl font-medium border border-gray-200 dark:border-gray-600 transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 flex items-center justify-center space-x-2"
+            @click="handleGoogleSignUp"
+            :disabled="loading"
+            class="w-full bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:bg-gray-100 dark:disabled:bg-gray-800 text-gray-700 dark:text-gray-200 py-3 rounded-xl font-medium border border-gray-200 dark:border-gray-600 transition-all duration-200 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 flex items-center justify-center space-x-2 disabled:cursor-not-allowed disabled:transform-none"
           >
             <svg class="w-4 h-4" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -164,12 +190,16 @@
 
 <script setup>
 const { $t } = useNuxtApp()
+const { signUp, signInWithGoogle } = useAuth()
+
 const name = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const acceptTerms = ref(false)
 const error = ref('')
+const success = ref('')
+const loading = ref(false)
 
 // Language selector
 const selectedLocale = useCookie('locale', { default: () => 'en' })
@@ -184,9 +214,18 @@ const changeLocale = () => {
 }
 
 const submit = async () => {
+  if (loading.value) return
+  
   error.value = ''
   
-  // Validation
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email.value)) {
+    error.value = 'Please enter a valid email address.'
+    return
+  }
+  
+  // Password validation
   if (password.value !== confirmPassword.value) {
     error.value = 'Passwords do not match'
     return
@@ -202,30 +241,66 @@ const submit = async () => {
     return
   }
   
+  loading.value = true
+  
   try {
-    const { token } = await $fetch('/api/auth/register', { 
-      method: 'POST', 
-      body: { 
-        name: name.value,
-        email: email.value, 
-        password: password.value 
+    const { data, error: authError } = await signUp(
+      email.value, 
+      password.value,
+      {
+        full_name: name.value,
+        name: name.value
       }
-    })
-    useCookie('auth_token', { maxAge: 60*60*24*7 }).value = token
-    navigateTo('/dashboard')
+    )
+    
+    if (authError) {
+      // Handle specific error cases
+      if (authError.includes('User already registered') || authError.includes('already registered') || authError.includes('email already exists')) {
+        error.value = `An account with ${email.value} already exists. Please try logging in instead or use a different email address.`
+      } else if (authError.includes('Invalid email')) {
+        error.value = 'Please enter a valid email address.'
+      } else if (authError.includes('Password should be at least')) {
+        error.value = 'Password must be at least 6 characters long.'
+      } else {
+        error.value = authError
+      }
+    } else {
+      // Show success message
+      success.value = 'Registration successful! Please check your email to verify your account.'
+    }
   } catch (err) {
     error.value = 'Registration failed. Please try again.'
+  } finally {
+    loading.value = false
   }
 }
 
-const signUpWithGoogle = () => {
-  // TODO: Implement Google OAuth
-  console.log('Google sign up clicked')
-  alert('Google Sign Up - To be implemented')
+const handleGoogleSignUp = async () => {
+  if (loading.value) return
+  
+  error.value = ''
+  loading.value = true
+  
+  try {
+    const { error: authError } = await signInWithGoogle()
+    
+    if (authError) {
+      error.value = authError
+    }
+    // Note: Google OAuth will redirect automatically
+  } catch (err) {
+    error.value = 'Google sign up failed. Please try again.'
+  } finally {
+    loading.value = false
+  }
 }
 
-onMounted(() => { 
-  if (useCookie('auth_token').value) navigateTo('/dashboard') 
+// Check if user is already logged in
+const user = useSupabaseUser()
+watch(user, (newUser) => {
+  if (newUser) {
+    navigateTo('/dashboard')
+  }
 })
 
 definePageMeta({ layout: false }) // Use no layout for full-screen design

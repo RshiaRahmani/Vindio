@@ -108,7 +108,20 @@
       <!-- Main Container -->
       <div class=" rounded-3xl p-8 text-center">
         <!-- Hero Section -->
-        <div class="mb-8 ">
+        <div class="mb-8">
+          <!-- Redirect Message for unauthenticated users -->
+          <div 
+            v-if="showRedirectMessage" 
+            class="mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 px-4 py-3 rounded-xl text-sm"
+          >
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+              </svg>
+              <span>Please login or sign up to access that page.</span>
+            </div>
+          </div>
+          
           <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
             {{ $t("welcome") }}
           </h1>
@@ -139,10 +152,14 @@
 </template>
 
 <script setup>
-const { $t } = useNuxtApp();
+const { $t } = useNuxtApp()
+const route = useRoute()
+
+// Check if user was redirected from a protected page
+const showRedirectMessage = ref(false)
 
 // Language selector
-const selectedLocale = useCookie("locale", { default: () => "en" });
+const selectedLocale = useCookie("locale", { default: () => "en" })
 
 const changeLocale = () => {
   // Save current color mode preference before reload
@@ -153,9 +170,26 @@ const changeLocale = () => {
   window.location.reload()
 }
 
-onMounted(() => {
-  if (useCookie("auth_token").value) navigateTo("/dashboard");
-});
+// Check if user is already authenticated and redirect to dashboard
+const user = useSupabaseUser()
+watch(user, (newUser) => {
+  if (newUser) {
+    navigateTo('/dashboard')
+  }
+}, { immediate: true })
 
-definePageMeta({ layout: false }); // Use no layout for full-screen design
+// Show redirect message if user came from a protected route
+onMounted(() => {
+  // Check if there's a redirect parameter or if user was redirected
+  if (route.query.redirected === 'true' || document.referrer.includes('/dashboard') || document.referrer.includes('/profile')) {
+    showRedirectMessage.value = true
+    
+    // Hide the message after 5 seconds
+    setTimeout(() => {
+      showRedirectMessage.value = false
+    }, 5000)
+  }
+})
+
+definePageMeta({ layout: false }) // Use no layout for full-screen design
 </script>

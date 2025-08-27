@@ -636,6 +636,9 @@ const _inlineRuntimeConfig = {
       "/__nuxt_error": {
         "cache": false
       },
+      "/auth/callback": {
+        "ssr": false
+      },
       "/_nuxt/builds/meta/**": {
         "headers": {
           "cache-control": "public, max-age=31536000, immutable"
@@ -648,8 +651,40 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {},
-  "jwtSecret": "dev-secret"
+  "public": {
+    "supabaseUrl": "https://hquxuwhpxnivurplwfou.supabase.co",
+    "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxdXh1d2hweG5pdnVycGx3Zm91Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4NzYyNDcsImV4cCI6MjA3MTQ1MjI0N30.ux__X2jSe0b3rUVYymYarO-QU7fuuFYJ5sHIu1eJnJY",
+    "supabase": {
+      "url": "https://hquxuwhpxnivurplwfou.supabase.co",
+      "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxdXh1d2hweG5pdnVycGx3Zm91Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4NzYyNDcsImV4cCI6MjA3MTQ1MjI0N30.ux__X2jSe0b3rUVYymYarO-QU7fuuFYJ5sHIu1eJnJY",
+      "redirect": true,
+      "redirectOptions": {
+        "login": "/login",
+        "callback": "/auth/callback",
+        "exclude": [
+          "/",
+          "/signup",
+          "/forgot-password",
+          "/auth/callback"
+        ],
+        "cookieRedirect": false,
+        "saveRedirectToCookie": false
+      },
+      "cookieName": "sb",
+      "cookiePrefix": "sb-hquxuwhpxnivurplwfou-auth-token",
+      "useSsrCookies": true,
+      "cookieOptions": {
+        "maxAge": 604800,
+        "sameSite": "lax",
+        "secure": false
+      },
+      "clientOptions": {}
+    }
+  },
+  "jwtSecret": "dev-secret",
+  "supabase": {
+    "serviceKey": ""
+  }
 };
 const envOptions = {
   prefix: "NITRO_",

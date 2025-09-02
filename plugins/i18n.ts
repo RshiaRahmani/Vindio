@@ -6,5 +6,10 @@ export default defineNuxtPlugin(() => {
   const locale = useCookie<string>('locale', { default: () => 'en' })
   const messages: Record<string, Record<string, string>> = { en, tr, ru }
   const t = (key: string): string => messages[locale.value]?.[key] || key
-  return { provide: { t } }
+  return { 
+    provide: { 
+      t,
+      $t: t  // Also provide as $t for backward compatibility
+    } 
+  }
 })

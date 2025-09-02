@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Loading state -->
     <div v-if="isLoading" class="min-h-screen flex items-center justify-center">
       <div class="text-center">
@@ -164,7 +164,7 @@
     </div>
     
     <!-- Unauthorized state -->
-    <div v-else class="min-h-screen flex items-center justify-center">
+    <div v-else class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div class="text-center">
         <p class="text-gray-600 dark:text-gray-400">{{ $t('unauthorized') || 'Unauthorized access' }}</p>
       </div>
@@ -182,67 +182,38 @@ const router = useRouter()
 const isLoading = ref(true)
 const isAuthenticated = ref(false)
 
-// Enhanced session recovery
-const recoverSession = async () => {
-  try {
-    const { data: { session }, error } = await supabase.auth.getSession()
-    
-    if (error) {
-      console.error('Session recovery error:', error)
-      return false
-    }
-    
-    if (session) {
-      console.log('Session found for user:', session.user.email)
-      return true
-    }
-    
-    console.log('No session found')
-    return false
-  } catch (error) {
-    console.error('Error recovering session:', error)
-    return false
-  }
-}
-
-// Wait for auth to initialize and check user state
+// Simple auth initialization
 onMounted(async () => {
   console.log('Dashboard mounted, checking auth...')
   
-  // Wait for the user reactive ref to be available
+  // Wait for one tick to let reactive refs stabilize
   await nextTick()
   
-  // First, try to recover session directly
-  const hasSession = await recoverSession()
-  
-  if (hasSession && user.value) {
-    console.log('User authenticated, staying on dashboard')
-    isAuthenticated.value = true
+  // Simple timeout-based check
+  setTimeout(() => {
+    if (user.value) {
+      console.log('User authenticated:', user.value.email)
+      isAuthenticated.value = true
+      fetchDashboardData()
+    } else {
+      console.log('No user found, redirecting to home')
+      navigateTo('/')
+    }
     isLoading.value = false
-    return
-  }
-  
-  // Wait a bit longer for the reactive user to load
-  let attempts = 0
-  const maxAttempts = 20 // Increased from 10
-  
-  while (attempts < maxAttempts && user.value === undefined) {
-    await new Promise(resolve => setTimeout(resolve, 150))
-    attempts++
-    console.log(`Waiting for user state... attempt ${attempts}`)
-  }
-  
-  // Final check
-  if (user.value) {
-    console.log('User authenticated after waiting')
-    isAuthenticated.value = true
-  } else {
-    console.log('No user found, redirecting to home')
-    await navigateTo('/')
-  }
-  
-  isLoading.value = false
+  }, 200) // Reduced timeout
 })
+
+// Watch for user changes to handle navigation back/forth
+watch(user, (newUser) => {
+  if (newUser && !isLoading.value) {
+    console.log('User state changed, authenticated:', newUser.email)
+    isAuthenticated.value = true
+    fetchDashboardData()
+  } else if (!newUser && !isLoading.value) {
+    console.log('User logged out, redirecting')
+    navigateTo('/')
+  }
+}, { immediate: false })
 
 const { $t } = useNuxtApp()
 const { user: authUser } = useAuth()
@@ -333,13 +304,6 @@ const getActivityTime = (timestamp) => {
   if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`
   return `${Math.floor(diffInMinutes / 1440)}d ago`
 }
-
-// Watch for user changes and fetch data
-watch(user, (newUser) => {
-  if (newUser) {
-    fetchDashboardData()
-  }
-}, { immediate: true })
 
 // Computed property for compatibility with template
 const dashboardData = computed(() => dashboardStats.value)

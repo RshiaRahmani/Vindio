@@ -18,5 +18,20 @@
   "continueWithGoogle": "Продолжить с Google",
   "rememberPassword": "Помните пароль?",
   "editProfile": "Редактировать профиль",
-  "saveChanges": "Сохранить изменения"
+  "saveChanges": "Сохранить изменения",
+  "navigation": "Навигация",
+  "menu": "Меню",
+  "close": "Закрыть",
+  "aiChat": "AI Чат",
+  "aiChatTitle": "Чат с Vindio AI",
+  "aiChatSubtitle": "Готов помочь",
+  "aiChatPlaceholder": "Введите сообщение… (Enter для отправки, Shift+Enter для новой строки)",
+  "aiChatFooter": "История: видимая на устройстве (localStorage) · истина сервера (сессия cookie) · FastAPI · FAISS + ONNX BGE-M3",
+  "aiWelcomeMessage": "Привет, я AI-ассистент Vindio AI Software. Как я могу помочь вам сегодня?",
+  "newChat": "Новый чат",
+  "chatTranscript": "Стенограмма чата",
+  "send": "Отправить",
+  "loading": "Загрузка...",
+  "unauthorized": "Неавторизован",
+  "pleaseLogin": "Пожалуйста, войдите в систему для доступа к этой странице."
 }

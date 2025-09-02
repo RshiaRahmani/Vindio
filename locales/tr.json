@@ -18,5 +18,20 @@
   "continueWithGoogle": "Google ile devam et",
   "rememberPassword": "Parolanızı hatırlıyor musunuz?",
   "editProfile": "Profili Düzenle",
-  "saveChanges": "Değişiklikleri Kaydet"
+  "saveChanges": "Değişiklikleri Kaydet",
+  "navigation": "Navigasyon",
+  "menu": "Menü",
+  "close": "Kapat",
+  "aiChat": "AI Sohbet",
+  "aiChatTitle": "Vindio AI ile Sohbet",
+  "aiChatSubtitle": "Yardıma hazır",
+  "aiChatPlaceholder": "Bir mesaj yazın… (Göndermek için Enter, yeni satır için Shift+Enter)",
+  "aiChatFooter": "Geçmiş: cihaz görünür (localStorage) · sunucu gerçek (çerez oturumu) · FastAPI · FAISS + ONNX BGE-M3",
+  "aiWelcomeMessage": "Merhaba, ben Vindio AI Yazılım'ın AI asistanıyım. Bugün size nasıl yardımcı olabilirim?",
+  "newChat": "Yeni sohbet",
+  "chatTranscript": "Sohbet geçmişi",
+  "send": "Gönder",
+  "loading": "Yükleniyor...",
+  "unauthorized": "Yetkisiz",
+  "pleaseLogin": "Bu sayfaya erişmek için lütfen giriş yapın."
 }

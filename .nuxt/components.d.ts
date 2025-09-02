@@ -12,7 +12,8 @@ type HydrationStrategies = {
 }
 type LazyComponent<T> = (T & DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }>)
 interface _GlobalComponents {
-      'ThreadsBackground': typeof import("../components/ThreadsBackground.vue")['default']
+      'MobileSidebar': typeof import("../components/MobileSidebar.vue")['default']
+    'ThreadsBackground': typeof import("../components/ThreadsBackground.vue")['default']
     'NuxtWelcome': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'NuxtLayout': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-layout")['default']
     'NuxtErrorBoundary': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -38,7 +39,8 @@ interface _GlobalComponents {
     'Body': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/head/runtime/components")['Body']
     'NuxtIsland': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/server-placeholder")['default']
-      'LazyThreadsBackground': LazyComponent<typeof import("../components/ThreadsBackground.vue")['default']>
+      'LazyMobileSidebar': LazyComponent<typeof import("../components/MobileSidebar.vue")['default']>
+    'LazyThreadsBackground': LazyComponent<typeof import("../components/ThreadsBackground.vue")['default']>
     'LazyNuxtWelcome': LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/welcome.vue")['default']>
     'LazyNuxtLayout': LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
     'LazyNuxtErrorBoundary': LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>
@@ -70,6 +72,7 @@ declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
+export const MobileSidebar: typeof import("../components/MobileSidebar.vue")['default']
 export const ThreadsBackground: typeof import("../components/ThreadsBackground.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -96,6 +99,7 @@ export const Html: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blob
 export const Body: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/server-placeholder")['default']
+export const LazyMobileSidebar: LazyComponent<typeof import("../components/MobileSidebar.vue")['default']>
 export const LazyThreadsBackground: LazyComponent<typeof import("../components/ThreadsBackground.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/app/components/nuxt-layout")['default']>

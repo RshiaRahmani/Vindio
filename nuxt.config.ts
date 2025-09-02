@@ -1,5 +1,6 @@
 // Minimal Nuxt 4 configuration
 export default defineNuxtConfig({
+  compatibilityDate: '2025-09-02',
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',

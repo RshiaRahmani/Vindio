@@ -9,6 +9,15 @@ declare module "nitropack/types" {
     '/api/auth/register': {
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/auth/register.post').default>>>>
     }
+    '/api/chat/ask': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/chat/ask.post').default>>>>
+    }
+    '/api/chat/reset': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/chat/reset.post').default>>>>
+    }
+    '/api/user/profile': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/user/profile').default>>>>
+    }
     '/__nuxt_error': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/core/runtime/nitro/handlers/renderer').default>>>>
     }

@@ -1575,12 +1575,18 @@ async function getIslandContext(event) {
 
 const _lazy_M1YnDW = () => Promise.resolve().then(function () { return login_post$1; });
 const _lazy_sJiJQS = () => Promise.resolve().then(function () { return register_post$1; });
+const _lazy_Nekwnk = () => Promise.resolve().then(function () { return ask_post$1; });
+const _lazy_N4Cr6D = () => Promise.resolve().then(function () { return reset_post$1; });
+const _lazy_CJix7b = () => Promise.resolve().then(function () { return profile; });
 const _lazy_ffrObw = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '', handler: _f8AliJ, lazy: false, middleware: true, method: undefined },
   { route: '/api/auth/login', handler: _lazy_M1YnDW, lazy: true, middleware: false, method: "post" },
   { route: '/api/auth/register', handler: _lazy_sJiJQS, lazy: true, middleware: false, method: "post" },
+  { route: '/api/chat/ask', handler: _lazy_Nekwnk, lazy: true, middleware: false, method: "post" },
+  { route: '/api/chat/reset', handler: _lazy_N4Cr6D, lazy: true, middleware: false, method: "post" },
+  { route: '/api/user/profile', handler: _lazy_CJix7b, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_ffrObw, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_ffrObw, lazy: true, middleware: false, method: undefined }
@@ -1966,6 +1972,113 @@ const register_post = defineEventHandler(async (event) => {
 const register_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: register_post
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const ask_post = defineEventHandler(async (event) => {
+  try {
+    const body = await readBody(event);
+    const { query } = body;
+    if (!query || typeof query !== "string") {
+      throw createError({
+        statusCode: 400,
+        statusMessage: "Query is required and must be a string"
+      });
+    }
+    await new Promise((resolve) => setTimeout(resolve, 1e3 + Math.random() * 2e3));
+    const responses = getResponseByKeyword(query.toLowerCase());
+    const response = {
+      answer: responses[Math.floor(Math.random() * responses.length)],
+      context: [],
+      // Could include relevant sources/documents
+      timestamp: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    return response;
+  } catch (error) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: error.message || "Internal server error"
+    });
+  }
+});
+function getResponseByKeyword(query) {
+  if (query.includes("help") || query.includes("support")) {
+    return [
+      "I'm here to help! What specific question do you have about Vindio AI Software?",
+      "I'd be happy to assist you. Could you provide more details about what you need help with?",
+      "I'm your AI assistant, ready to help with any questions about our platform."
+    ];
+  }
+  if (query.includes("vindio") || query.includes("software") || query.includes("platform")) {
+    return [
+      "Vindio AI Software is a comprehensive platform designed to streamline your workflow with AI-powered tools.",
+      "Our platform offers advanced AI capabilities to help you manage projects, tasks, and collaborate more effectively.",
+      "Vindio combines powerful AI technology with intuitive design to enhance your productivity."
+    ];
+  }
+  if (query.includes("feature") || query.includes("what can") || query.includes("capabilities")) {
+    return [
+      "Vindio offers project management, task tracking, AI-powered insights, team collaboration, and much more!",
+      "Our key features include smart project planning, automated task prioritization, real-time collaboration, and AI-driven analytics.",
+      "You can manage projects, track tasks, collaborate with your team, and get AI-powered recommendations to optimize your workflow."
+    ];
+  }
+  if (query.includes("how to") || query.includes("tutorial") || query.includes("guide")) {
+    return [
+      "I can guide you through using our platform. What specific feature would you like to learn about?",
+      "Let me help you get started! Are you looking for help with projects, tasks, or team collaboration?",
+      "I'd be happy to provide step-by-step guidance. What would you like to learn how to do?"
+    ];
+  }
+  if (query.includes("price") || query.includes("cost") || query.includes("subscription")) {
+    return [
+      "For pricing information, please visit our pricing page or contact our sales team for custom enterprise solutions.",
+      "We offer flexible pricing plans to suit different needs. You can find detailed pricing on our website.",
+      "Our pricing is designed to scale with your team. Contact us for a personalized quote based on your requirements."
+    ];
+  }
+  if (query.includes("hello") || query.includes("hi") || query.includes("hey")) {
+    return [
+      "Hello! I'm your Vindio AI assistant. How can I help you today?",
+      "Hi there! Welcome to Vindio. What would you like to know about our platform?",
+      "Hey! I'm here to help you with any questions about Vindio AI Software."
+    ];
+  }
+  return [
+    "That's an interesting question! Let me help you with that. Could you provide a bit more context?",
+    "I understand what you're asking. Here's what I can tell you about that topic...",
+    "Great question! Based on what you're asking, I'd recommend exploring our documentation or contacting our support team for detailed assistance.",
+    "I'd be happy to help you with that. Can you tell me more about what you're trying to accomplish?",
+    "Thanks for your question! While I may not have the exact answer, I can help you find the right resources or connect you with our support team."
+  ];
+}
+
+const ask_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: ask_post
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const reset_post = defineEventHandler(async (event) => {
+  try {
+    return {
+      success: true,
+      message: "Chat history cleared successfully",
+      timestamp: (/* @__PURE__ */ new Date()).toISOString()
+    };
+  } catch (error) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: error.message || "Failed to reset chat"
+    });
+  }
+});
+
+const reset_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: reset_post
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const profile = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {

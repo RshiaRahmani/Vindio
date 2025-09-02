@@ -18,5 +18,20 @@
   "continueWithGoogle": "Continue with Google",
   "rememberPassword": "Remember your password?",
   "editProfile": "Edit Profile",
-  "saveChanges": "Save Changes"
+  "saveChanges": "Save Changes",
+  "navigation": "Navigation",
+  "menu": "Menu",
+  "close": "Close",
+  "aiChat": "AI Chat",
+  "aiChatTitle": "Chat with Vindio AI",
+  "aiChatSubtitle": "Ready to help",
+  "aiChatPlaceholder": "Type a message… (Enter to send, Shift+Enter for newline)",
+  "aiChatFooter": "History: device-visible (localStorage) · server-truth (cookie session) · FastAPI · FAISS + ONNX BGE-M3",
+  "aiWelcomeMessage": "Hello, I'm Vindio AI Software's AI assistant. How can I help you today?",
+  "newChat": "New chat",
+  "chatTranscript": "Chat transcript",
+  "send": "Send",
+  "loading": "Loading...",
+  "unauthorized": "Unauthorized",
+  "pleaseLogin": "Please log in to access this page."
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
     <!-- Desktop Header -->
-    <header class="hidden md:flex flex-wrap justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 px-24 bg-white dark:bg-gray-800">
+    <header class="hidden md:flex flex-wrap justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 px-24 bg-white dark:bg-gray-800 animate-slide-down">
       <div class="flex items-center gap-4">
          <NuxtLink to="/" class="font-semibold font-2xl">Vindio</NuxtLink>
       <template v-if="authed">
@@ -100,7 +100,7 @@
     </header>
 
     <!-- Mobile Header -->
-    <header class="md:hidden flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <header class="md:hidden flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 animate-slide-down">
       <NuxtLink to="/" class="font-semibold text-xl">Vindio</NuxtLink>
       <button 
         @click="toggleMobileSidebar" 
@@ -135,11 +135,62 @@
       @close="closeMobileSidebar"
     />
 
-    <main>
+    <main class="animate-fade-in">
       <slot />
     </main>
+
+    <!-- Floating AI Chat (show on all pages except AI chat page) -->
+    <FloatingAIChat v-if="authed && !isAIChatPage" />
   </div>
 </template>
+
+<style>
+/* Page Load Animations */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out 0.2s both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out forwards;
+}
+</style>
 
 <script setup>
 const { $t } = useNuxtApp()
@@ -170,6 +221,10 @@ onMounted(async () => {
     authInitialized.value = true
   }, 100)
 })
+
+// Check if we're on the AI chat page
+const route = useRoute()
+const isAIChatPage = computed(() => route.path === '/ai-chat')
 
 // Use Supabase logout
 const { signOut } = useAuth()

@@ -11,7 +11,7 @@
     <!-- Dashboard content -->
     <div v-else-if="isAuthenticated" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mb-8 opacity-0 animate-scale-in">
         <div class="flex items-center justify-between">
           <div>
             <h1 class="text-3xl font-semibold text-gray-900 dark:text-white">{{ $t('dashboard') }}</h1>
@@ -25,7 +25,7 @@
 
       <!-- Stats Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 animate-scale-in" style="animation-delay: 0.1s">
           <div class="flex items-center justify-between">
             <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
               <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 animate-scale-in" style="animation-delay: 0.2s">
           <div class="flex items-center justify-between">
             <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center">
               <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 animate-scale-in" style="animation-delay: 0.3s">
           <div class="flex items-center justify-between">
             <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
               <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@
           </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 animate-scale-in" style="animation-delay: 0.4s">
           <div class="flex items-center justify-between">
             <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center">
               <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +85,7 @@
       <!-- Content Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Recent Activity -->
-        <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+        <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 animate-scale-in" style="animation-delay: 0.5s">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ $t('recentActivity') }}</h2>
             <button class="text-blue-500 hover:text-blue-600 font-medium text-sm">{{ $t('viewAll') }}</button>
@@ -114,7 +114,7 @@
         <!-- Sidebar -->
         <div class="space-y-6">
           <!-- Quick Actions -->
-          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 animate-scale-in" style="animation-delay: 0.6s">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
             
             <div class="space-y-3">
@@ -144,7 +144,7 @@
           </div>
 
           <!-- Progress -->
-          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 opacity-0 animate-scale-in" style="animation-delay: 0.7s">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Weekly Progress</h3>
             <div class="flex items-center justify-center">
               <div class="relative w-24 h-24">
@@ -308,3 +308,20 @@ const getActivityTime = (timestamp) => {
 // Computed property for compatibility with template
 const dashboardData = computed(() => dashboardStats.value)
 </script>
+
+<style scoped>
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out forwards;
+}
+</style>

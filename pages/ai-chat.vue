@@ -9,8 +9,9 @@
     </div>
     
     <!-- Chat interface -->
+        <!-- Chat interface -->
     <div v-else-if="isAuthenticated" class="h-full flex flex-col">
-      <section class="h-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors flex flex-col">
+      <section class="h-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors flex flex-col opacity-0 animate-scale-in">
         <!-- Header -->
         <header class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors flex-shrink-0">
           <div class="flex items-center gap-4">
@@ -41,11 +42,12 @@
         <!-- Chat Area -->
         <div 
           ref="chatContainer"
-          class="flex-1 overflow-y-auto bg-gray-100 dark:bg-gray-900/50 p-6 transition-colors"
+          class="flex-1 overflow-y-auto bg-gray-100 dark:bg-gray-900/50 transition-colors"
           role="log" 
           aria-live="polite" 
           :aria-label="$t('chatTranscript')"
         >
+          <div class="px-4 sm:px-8 md:px-16 lg:px-24 py-6">
           <!-- Day indicator (if needed) -->
           <div v-if="showDateSeparator" class="sticky top-2 z-10 text-center mb-6">
             <span class="inline-block px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 shadow-sm">
@@ -57,8 +59,9 @@
           <div 
             v-for="(message, index) in messages" 
             :key="index"
-            class="flex gap-4 mb-6 items-end"
+            class="flex gap-4 mb-6 items-end animate-fade-in-message"
             :class="message.role === 'user' ? 'justify-end' : 'justify-start'"
+            :style="`animation-delay: ${index * 0.1}s`"
           >
             <!-- Avatar (for assistant messages) -->
             <div 
@@ -81,14 +84,14 @@
             <!-- Avatar (for user messages) -->
             <div 
               v-if="message.role === 'user'"
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 border border-gray-200 dark:border-gray-600 flex items-center justify-center text-lg flex-shrink-0 shadow-sm"
+              class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0 shadow-sm"
             >
-              👤
+              {{ userInitials }}
             </div>
           </div>
 
           <!-- Typing indicator -->
-          <div v-if="isTyping" class="flex gap-4 mb-6 items-end justify-start">
+          <div v-if="isTyping" class="flex gap-4 mb-6 items-end justify-start animate-fade-in-message">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-700 flex items-center justify-center text-lg shadow-sm">
               🤖
             </div>
@@ -100,11 +103,13 @@
               </span>
             </div>
           </div>
+          </div>
         </div>
 
         <!-- Composer -->
-        <div class="flex gap-4 items-end p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors flex-shrink-0">
-          <div class="flex-1 flex gap-3 items-center bg-gray-100 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-3xl px-5 py-4 focus-within:border-blue-500 dark:focus-within:border-blue-400 transition-colors shadow-sm">
+        <div class="flex gap-4 items-end border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors flex-shrink-0">
+          <div class="px-4 sm:px-8 md:px-16 lg:px-24 py-6 flex gap-4 items-end w-full animate-fade-in-prompt">
+            <div class="flex-1 flex gap-3 items-center bg-gray-100 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-3xl px-5 py-4 focus-within:border-blue-500 dark:focus-within:border-blue-400 transition-colors shadow-sm">
             <textarea
               ref="messageInput"
               v-model="currentMessage"
@@ -128,6 +133,7 @@
               </svg>
             </span>
           </button>
+          </div>
         </div>
 
         <!-- Footer -->
@@ -236,6 +242,17 @@ const currentDate = computed(() => {
     day: 'numeric',
     year: 'numeric'
   })
+})
+
+// User display data (same as layout)
+const userInitials = computed(() => {
+  if (!user.value?.email) return 'U'
+  const email = user.value.email
+  const parts = email.split('@')[0].split('.')
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase()
+  }
+  return email[0].toUpperCase()
 })
 
 // Message management
@@ -371,7 +388,52 @@ useHead({
   }
 }
 
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .animate-bounce {
   animation: bounce 1.2s infinite ease-in-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out forwards;
+}
+
+@keyframes fade-in-message {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-prompt {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-message {
+  animation: fade-in-message 0.4s ease-out forwards;
+}
+
+.animate-fade-in-prompt {
+  animation: fade-in-prompt 0.6s ease-out forwards;
 }
 </style>

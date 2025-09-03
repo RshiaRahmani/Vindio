@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
     <!-- Desktop Header -->
-    <header class="hidden md:flex flex-wrap justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 px-24 bg-white dark:bg-gray-800 animate-slide-down">
+    <header class="hidden md:flex flex-wrap justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 px-24 bg-white dark:bg-gray-800 animate-slide-down relative z-50">
       <div class="flex items-center gap-4">
          <NuxtLink to="/" class="font-semibold font-2xl">Vindio</NuxtLink>
       <template v-if="authed">
@@ -33,7 +33,7 @@
           <!-- Dropdown Menu -->
           <div 
             v-if="isProfileDropdownOpen"
-            class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50"
+            class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-[9999]"
           >
             <!-- User Info -->
             <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
@@ -100,7 +100,7 @@
     </header>
 
     <!-- Mobile Header -->
-    <header class="md:hidden flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 animate-slide-down">
+    <header class="md:hidden flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 animate-slide-down relative z-50">
       <NuxtLink to="/" class="font-semibold text-xl">Vindio</NuxtLink>
       <button 
         @click="toggleMobileSidebar" 
@@ -229,8 +229,21 @@ const isAIChatPage = computed(() => route.path === '/ai-chat')
 // Use Supabase logout
 const { signOut } = useAuth()
 const logout = async () => {
-  await signOut()
-  closeProfileDropdown()
+  try {
+    closeProfileDropdown()
+    // Call signOut and handle the result
+    const result = await signOut()
+    
+    if (result.error) {
+      console.error('Logout error:', result.error)
+      return
+    }
+    
+    // Navigate to main page after successful logout
+    await navigateTo('/')
+  } catch (error) {
+    console.error('Logout error:', error)
+  }
 }
 
 // Mobile sidebar state

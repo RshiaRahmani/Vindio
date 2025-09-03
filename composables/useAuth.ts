@@ -58,7 +58,6 @@ export const useAuth = () => {
       const { error } = await supabase.auth.signOut()
       if (error) throw error
       
-      await navigateTo('/login')
       return { error: null }
     } catch (error: any) {
       return { error: error.message }

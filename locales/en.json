@@ -37,5 +37,15 @@
   "chatTranscript": "Chat transcript",
   "loading": "Loading...",
   "unauthorized": "Unauthorized",
-  "pleaseLogin": "Please log in to access this page."
+  "pleaseLogin": "Please log in to access this page.",
+  "footer": {
+    "title": "My Project",
+    "description": "A short description of the project.",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  }
+  
+
 }

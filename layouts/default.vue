@@ -141,6 +141,8 @@
 
     <!-- Floating AI Chat (show on all pages except AI chat page) -->
     <FloatingAIChat v-if="authed && !isAIChatPage" />
+    <!-- ⬇️ Global Footer -->
+<Footer />
   </div>
 </template>
 
@@ -311,3 +313,5 @@ watch(() => useRoute().path, () => {
 
 // Close sidebar when clicking outside (handled by the MobileSidebar component)
 </script>
+
+

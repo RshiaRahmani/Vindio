@@ -37,5 +37,5 @@ export { useSupabaseCookieRedirect } from '../node_modules/.pnpm/@nuxtjs+supabas
 export { useSupabaseSession } from '../node_modules/.pnpm/@nuxtjs+supabase@1.6.1/node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseSession';
 export { useSupabaseUser } from '../node_modules/.pnpm/@nuxtjs+supabase@1.6.1/node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseUser';
 export { useColorMode } from '../node_modules/.pnpm/@nuxtjs+color-mode@3.5.2_magicast@0.3.5/node_modules/@nuxtjs/color-mode/dist/runtime/composables';
-export { useNuxtDevTools } from '../node_modules/.pnpm/@nuxt+devtools@2.6.2_vite@7.1.2_@types+node@24.3.0_jiti@2.5.1_terser@5.43.1_yaml@2.8.1__vue@3.5.18_typescript@5.9.2_/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
-export { definePageMeta } from '../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_50454770528141381721af685ce27ba7/node_modules/nuxt/dist/pages/runtime/composables';
+export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
+export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composables';

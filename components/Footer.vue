@@ -14,8 +14,22 @@
         <!-- Links -->
         <nav aria-label="Footer" class="flex flex-wrap items-center gap-4">
           <NuxtLink to="/" class="text-sm hover:text-gray-300">{{ $t('footer_home') }}</NuxtLink>
-          <NuxtLink to="/about" class="text-sm hover:text-gray-300">{{ $t('footer_about') }}</NuxtLink>
-          <NuxtLink to="/contact" class="text-sm hover:text-gray-300">{{ $t('footer_contact') }}</NuxtLink>
+          
+          <a
+            href="https://www.linkedin.com/company/vindio-ai-software-ltd/posts/?feedView=all"
+            target="_blank"
+            class="text-sm hover:text-gray-300"
+          >
+            {{ $t('footer_about') }}
+          </a>
+          
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=melike@example.com&cc=cemdir@metu.edu.tr&su=Hello%20Vindio&body=Hi%20there,%0A%0AI%20would%20like%20to%20get%20in%20touch%20with%20you.%0A%0ARegards,"
+            target="_blank"
+            class="text-sm hover:text-gray-300"
+          >
+            {{ $t('footer_contact') }}
+          </a>
         </nav>
       </div>
 

@@ -38,14 +38,12 @@
   "loading": "Loading...",
   "unauthorized": "Unauthorized",
   "pleaseLogin": "Please log in to access this page.",
-  "footer": {
-    "title": "My Project",
-    "description": "A short description of the project.",
-    "home": "Home",
-    "about": "About",
-    "contact": "Contact",
-    "rights": "All rights reserved."
-  }
+  "footer_title": "My Project",
+  "footer_description": "A short description of the project.",
+  "footer_home": "Home",
+  "footer_about": "About",
+  "footer_contact": "Contact",
+  "footer_rights": "All rights reserved."
   
 
 }

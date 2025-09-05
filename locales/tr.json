@@ -38,14 +38,11 @@
   "loading": "Yükleniyor...",
   "unauthorized": "Yetkisiz",
   "pleaseLogin": "Bu sayfaya erişmek için lütfen giriş yapın.",
-  "footer": {
-    "title": "Projem",
-    "description": "Projenin kısa açıklaması.",
-    "home": "Ana Sayfa",
-    "about": "Hakkında",
-    "contact": "İletişim",
-    "rights": "Tüm hakları saklıdır."
-  }
-  
+  "footer_title": "Projem",
+  "footer_description": "Projenin kısa açıklaması.",
+  "footer_home": "Ana Sayfa",
+  "footer_about": "Hakkında",
+  "footer_contact": "İletişim",
+  "footer_rights": "Tüm hakları saklıdır."
 
 }

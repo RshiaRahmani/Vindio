@@ -4,8 +4,9 @@
     <header class="hidden md:flex flex-wrap justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 px-24 bg-white dark:bg-gray-800 animate-slide-down relative z-50">
       <div class="flex items-center gap-4">
          <NuxtLink to="/" class="font-semibold font-2xl">Vindio</NuxtLink>
-      <template v-if="authed">
-        <NuxtLink to="/dashboard">{{$t('dashboard')}}</NuxtLink>
+         <template v-if="authed">
+           <NuxtLink to="/dashboard">{{$t('dashboard')}}</NuxtLink>
+           <NuxtLink to="/datasets">{{$t('datasets.title')}}</NuxtLink>
         <NuxtLink to="/ai-chat">{{$t('aiChat')}}</NuxtLink>
       </template>
       </div>

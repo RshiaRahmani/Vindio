@@ -43,7 +43,58 @@
   "footer_home": "Home",
   "footer_about": "About",
   "footer_contact": "Contact",
-  "footer_rights": "All rights reserved."
-  
-
+  "footer_rights": "All rights reserved.",
+  "by": "by",
+  "view": "View",
+  "download": "Download",
+  "datasets": {
+    "title": "Datasets",
+    "subtitle": "Discover and explore high-quality machine learning datasets",
+    "addDataset": "Add Dataset",
+    "searchPlaceholder": "Search datasets...",
+    "filterByTags": "Filter by tags",
+    "sortBy": "Sort by",
+    "sortOptions": {
+      "newest": "Newest",
+      "alphabetical": "Alphabetical"
+    },
+    "activeFilters": "Active filters",
+    "clearAll": "Clear all",
+    "clearFilters": "Clear filters",
+    "resultsCount": "{count} datasets found",
+    "errorTitle": "Error loading datasets",
+    "errorMessage": "Something went wrong while loading datasets. Please try again.",
+    "retry": "Retry",
+    "noResults": "No datasets found",
+    "noResultsDescription": "Try adjusting your search or filters to find what you're looking for.",
+    "noDatasets": "No datasets available",
+    "noDatasetsDescription": "Be the first to share a dataset with the community!",
+    "loadMore": "Load more",
+    "loading": "Loading...",
+    "form": {
+      "subtitle": "Share your dataset with the community",
+      "title": "Title",
+      "titlePlaceholder": "Enter dataset title",
+      "description": "Description", 
+      "descriptionPlaceholder": "Describe your dataset",
+      "category": "Category",
+      "selectCategory": "Select a category",
+      "license": "License",
+      "selectLicense": "Select a license",
+      "size": "Dataset Size",
+      "sizePlaceholder": "e.g., 100MB, 2.5GB",
+      "format": "Format",
+      "selectFormat": "Select format",
+      "tags": "Tags",
+      "tagsPlaceholder": "Add tags (press Enter or comma to add)",
+      "fileUrl": "File URL (optional)",
+      "fileUrlPlaceholder": "https://example.com/dataset.csv",
+      "create": "Create Dataset",
+      "creating": "Creating...",
+      "loginRequired": "Please log in to create datasets",
+      "errorCreating": "Error creating dataset. Please try again.",
+      "createError": "Failed to create dataset"
+    }
+  },
+  "cancel": "Cancel"
 }

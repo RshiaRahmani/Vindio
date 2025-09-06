@@ -12,7 +12,9 @@ type HydrationStrategies = {
 }
 type LazyComponent<T> = (T & DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }>)
 interface _GlobalComponents {
-      'FloatingAIChat': typeof import("../components/FloatingAIChat.vue")['default']
+      'AddDatasetModal': typeof import("../components/AddDatasetModal.vue")['default']
+    'DatasetCard': typeof import("../components/DatasetCard.vue")['default']
+    'FloatingAIChat': typeof import("../components/FloatingAIChat.vue")['default']
     'Footer': typeof import("../components/Footer.vue")['default']
     'MobileSidebar': typeof import("../components/MobileSidebar.vue")['default']
     'ThreadsBackground': typeof import("../components/ThreadsBackground.vue")['default']
@@ -41,7 +43,9 @@ interface _GlobalComponents {
     'Body': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/head/runtime/components")['Body']
     'NuxtIsland': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/components/server-placeholder")['default']
-      'LazyFloatingAIChat': LazyComponent<typeof import("../components/FloatingAIChat.vue")['default']>
+      'LazyAddDatasetModal': LazyComponent<typeof import("../components/AddDatasetModal.vue")['default']>
+    'LazyDatasetCard': LazyComponent<typeof import("../components/DatasetCard.vue")['default']>
+    'LazyFloatingAIChat': LazyComponent<typeof import("../components/FloatingAIChat.vue")['default']>
     'LazyFooter': LazyComponent<typeof import("../components/Footer.vue")['default']>
     'LazyMobileSidebar': LazyComponent<typeof import("../components/MobileSidebar.vue")['default']>
     'LazyThreadsBackground': LazyComponent<typeof import("../components/ThreadsBackground.vue")['default']>
@@ -76,6 +80,8 @@ declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
+export const AddDatasetModal: typeof import("../components/AddDatasetModal.vue")['default']
+export const DatasetCard: typeof import("../components/DatasetCard.vue")['default']
 export const FloatingAIChat: typeof import("../components/FloatingAIChat.vue")['default']
 export const Footer: typeof import("../components/Footer.vue")['default']
 export const MobileSidebar: typeof import("../components/MobileSidebar.vue")['default']
@@ -105,6 +111,8 @@ export const Html: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blob
 export const Body: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: typeof import("../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/components/server-placeholder")['default']
+export const LazyAddDatasetModal: LazyComponent<typeof import("../components/AddDatasetModal.vue")['default']>
+export const LazyDatasetCard: LazyComponent<typeof import("../components/DatasetCard.vue")['default']>
 export const LazyFloatingAIChat: LazyComponent<typeof import("../components/FloatingAIChat.vue")['default']>
 export const LazyFooter: LazyComponent<typeof import("../components/Footer.vue")['default']>
 export const LazyMobileSidebar: LazyComponent<typeof import("../components/MobileSidebar.vue")['default']>

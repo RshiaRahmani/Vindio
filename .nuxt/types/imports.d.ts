@@ -194,6 +194,7 @@ declare global {
   const useCycleList: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useCycleList']
   const useDark: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDark']
   const useDatabase: typeof import('../../composables/useDatabase')['useDatabase']
+  const useDatasets: typeof import('../../composables/useDatasets')['useDatasets']
   const useDateFormat: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDateFormat']
   const useDebounce: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDebounce']
   const useDebounceFn: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDebounceFn']
@@ -606,6 +607,7 @@ declare module 'vue' {
     readonly useCycleList: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDark']>
     readonly useDatabase: UnwrapRef<typeof import('../../composables/useDatabase')['useDatabase']>
+    readonly useDatasets: UnwrapRef<typeof import('../../composables/useDatasets')['useDatasets']>
     readonly useDateFormat: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDateFormat']>
     readonly useDebounce: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDebounce']>
     readonly useDebounceFn: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useDebounceFn']>

@@ -9,18 +9,19 @@ This folder contains organized database schemas and query functions for your Sup
 - `composables.ts` - Schema-based composable (alternative to main useDatabase)
 - `migration.sql` - SQL script to set up your database tables and policies
 - `example-usage.vue` - Example component showing how to use the schema
+- `profile-usage-example.vue` - Example component showing how to use getCurrentProfile
 - `index.ts` - Main exports file
 
 ## Profile Schema
 
-The profile table has been updated to match your server structure:
+The profile table structure in the database:
 
 ```sql
-CREATE TABLE public.profiles (
+CREATE TABLE profiles (
   id uuid not null,
-  name text null,
+  full_name text null,
   bio text null,
-  github_link text null,
+  website text null,
   created_at timestamp with time zone null default now(),
   constraint profiles_pkey primary key (id),
   constraint profiles_id_fkey foreign KEY (id) references auth.users (id) on delete CASCADE
@@ -29,13 +30,110 @@ CREATE TABLE public.profiles (
 
 ### Profile Interface
 
+Our TypeScript interface maps database columns to more intuitive names:
+
 ```typescript
 interface Profile {
-  id: string
-  name: string | null
-  bio: string | null
-  github_link: string | null
-  created_at: string | null
+  id: string                    // maps to: id
+  name: string | null          // maps to: full_name
+  bio: string | null           // maps to: bio  
+  github_link: string | null   // maps to: website
+  created_at: string | null    // maps to: created_at
+}
+```
+
+**Database Column → Interface Property Mapping:**
+- `full_name` → `name`
+- `bio` → `bio` (same)
+- `website` → `github_link`
+- `created_at` → `created_at` (same)
+
+## getCurrentProfile Function
+
+The `getCurrentProfile` function automatically gets the current authenticated user's profile without needing to pass a user ID:
+
+### Usage in Vue Components
+
+```typescript
+<script setup>
+const { getCurrentProfile } = useDatabase()
+
+const profile = ref(null)
+const loading = ref(false)
+const error = ref(null)
+
+const loadCurrentUserProfile = async () => {
+  loading.value = true
+  try {
+    const userProfile = await getCurrentProfile()
+    if (userProfile) {
+      profile.value = userProfile
+      console.log('Profile:', userProfile)
+      // userProfile contains: { id, name, bio, github_link, created_at }
+    } else {
+      console.log('No profile found for current user')
+    }
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
+  }
+}
+
+// Load on mount
+onMounted(() => {
+  loadCurrentUserProfile()
+})
+</script>
+```
+
+### Direct Database Query Usage
+
+```typescript
+import { DatabaseQueries } from '~/schema/queries'
+
+const supabase = useSupabaseClient()
+const db = new DatabaseQueries(supabase)
+
+// Get current user's profile
+const profile = await db.getCurrentProfile()
+console.log(profile) // → { id, name, bio, github_link, created_at } or null
+```
+
+### How it Works
+
+1. **Session Check**: Gets the current authenticated session from Supabase
+2. **Automatic User ID**: Extracts the user ID from the session JWT
+3. **Profile Query**: Queries the profiles table for the authenticated user
+4. **Error Handling**: Returns null if no profile found, throws error for other issues
+
+```typescript
+// Inside queries.ts
+async getCurrentProfile(): Promise<Profile | null> {
+  // 1️⃣ Get the current session – this contains the JWT with the user id
+  const {
+    data: { session },
+    error: sessErr,
+  } = await this.supabase.auth.getSession()
+  
+  if (sessErr) throw sessErr
+  if (!session?.user) return null
+
+  // 2️⃣ Query the `profiles` table for the row whose `id` matches the user id
+  const { data, error } = await this.supabase
+    .from('profiles')
+    .select('id, name, bio, github_link, created_at')
+    .eq('id', session.user.id)               // session.user.id == auth.uid()
+    .single()                                 // expect only one row
+
+  if (error) {
+    if (error.code === 'PGRST116' || error.details === 'The result contains 0 rows') {
+      return null
+    }
+    throw error
+  }
+  
+  return data   // → { id, name, bio, github_link, created_at }
 }
 ```
 

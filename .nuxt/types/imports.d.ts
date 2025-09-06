@@ -42,6 +42,8 @@ declare global {
   const definePayloadPlugin: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/nuxt')['definePayloadPlugin']
   const definePayloadReducer: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/payload')['definePayloadReducer']
   const definePayloadReviver: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/payload')['definePayloadReviver']
+  const deleteCurrentUserProfile: typeof import('../../utils/supabase-profiles')['deleteCurrentUserProfile']
+  const deleteProfilesByName: typeof import('../../utils/supabase-profiles')['deleteProfilesByName']
   const eagerComputed: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['eagerComputed']
   const effect: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['effect']
   const effectScope: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['effectScope']
@@ -49,6 +51,7 @@ declare global {
   const getAppManifest: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/manifest')['getAppManifest']
   const getCurrentInstance: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['getCurrentInstance']
   const getCurrentScope: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['getCurrentScope']
+  const getCurrentUserProfile: typeof import('../../utils/profile')['getCurrentUserProfile']
   const getRouteRules: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/manifest')['getRouteRules']
   const h: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['h']
   const hasInjectionContext: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['hasInjectionContext']
@@ -95,6 +98,7 @@ declare global {
   const onUnmounted: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['onUnmounted']
   const onUpdated: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['onUpdated']
   const onWatcherCleanup: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['onWatcherCleanup']
+  const patchGithubUrl: typeof import('../../utils/profile')['patchGithubUrl']
   const pausableWatch: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['pausableWatch']
   const prefetchComponents: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/preload')['prefetchComponents']
   const preloadComponents: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/preload')['preloadComponents']
@@ -110,6 +114,10 @@ declare global {
   const reactiveComputed: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['reactiveComputed']
   const reactiveOmit: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['reactiveOmit']
   const reactivePick: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['reactivePick']
+  const readAllProfiles: typeof import('../../utils/supabase-profiles')['readAllProfiles']
+  const readCurrentUserProfile: typeof import('../../utils/supabase-profiles')['readCurrentUserProfile']
+  const readProfilesWithPagination: typeof import('../../utils/supabase-profiles')['readProfilesWithPagination']
+  const readSpecificColumns: typeof import('../../utils/supabase-profiles')['readSpecificColumns']
   const readonly: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['readonly']
   const ref: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['ref']
   const refAutoReset: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['refAutoReset']
@@ -131,6 +139,11 @@ declare global {
   const shallowReadonly: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['shallowReadonly']
   const shallowRef: typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['shallowRef']
   const showError: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/error')['showError']
+  const subscribeToAllProfileChanges: typeof import('../../utils/supabase-profiles')['subscribeToAllProfileChanges']
+  const subscribeToCurrentUserProfile: typeof import('../../utils/supabase-profiles')['subscribeToCurrentUserProfile']
+  const subscribeToProfileDeletes: typeof import('../../utils/supabase-profiles')['subscribeToProfileDeletes']
+  const subscribeToProfileInserts: typeof import('../../utils/supabase-profiles')['subscribeToProfileInserts']
+  const subscribeToProfileUpdates: typeof import('../../utils/supabase-profiles')['subscribeToProfileUpdates']
   const syncRef: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['syncRef']
   const syncRefs: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['syncRefs']
   const templateRef: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['templateRef']
@@ -152,6 +165,10 @@ declare global {
   const unrefElement: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['unrefElement']
   const until: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['until']
   const updateAppConfig: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/config')['updateAppConfig']
+  const updateCurrentUserGithub: typeof import('../../utils/supabase-profiles')['updateCurrentUserGithub']
+  const updateCurrentUserProfile: typeof import('../../utils/supabase-profiles')['updateCurrentUserProfile']
+  const updateGithubUrl: typeof import('../../utils/profile')['updateGithubUrl']
+  const updateProfilesByName: typeof import('../../utils/supabase-profiles')['updateProfilesByName']
   const useActiveElement: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useActiveElement']
   const useAnimate: typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useAnimate']
   const useAppConfig: typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/config')['useAppConfig']
@@ -455,6 +472,8 @@ declare module 'vue' {
     readonly definePayloadPlugin: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/nuxt')['definePayloadPlugin']>
     readonly definePayloadReducer: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/payload')['definePayloadReducer']>
     readonly definePayloadReviver: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/payload')['definePayloadReviver']>
+    readonly deleteCurrentUserProfile: UnwrapRef<typeof import('../../utils/supabase-profiles')['deleteCurrentUserProfile']>
+    readonly deleteProfilesByName: UnwrapRef<typeof import('../../utils/supabase-profiles')['deleteProfilesByName']>
     readonly eagerComputed: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['eagerComputed']>
     readonly effect: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['effect']>
     readonly effectScope: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['effectScope']>
@@ -462,6 +481,7 @@ declare module 'vue' {
     readonly getAppManifest: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/manifest')['getAppManifest']>
     readonly getCurrentInstance: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['getCurrentScope']>
+    readonly getCurrentUserProfile: UnwrapRef<typeof import('../../utils/profile')['getCurrentUserProfile']>
     readonly getRouteRules: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/manifest')['getRouteRules']>
     readonly h: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['h']>
     readonly hasInjectionContext: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['hasInjectionContext']>
@@ -508,6 +528,7 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['onWatcherCleanup']>
+    readonly patchGithubUrl: UnwrapRef<typeof import('../../utils/profile')['patchGithubUrl']>
     readonly pausableWatch: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['pausableWatch']>
     readonly prefetchComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/preload')['prefetchComponents']>
     readonly preloadComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/preload')['preloadComponents']>
@@ -523,6 +544,10 @@ declare module 'vue' {
     readonly reactiveComputed: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['reactiveComputed']>
     readonly reactiveOmit: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['reactiveOmit']>
     readonly reactivePick: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['reactivePick']>
+    readonly readAllProfiles: UnwrapRef<typeof import('../../utils/supabase-profiles')['readAllProfiles']>
+    readonly readCurrentUserProfile: UnwrapRef<typeof import('../../utils/supabase-profiles')['readCurrentUserProfile']>
+    readonly readProfilesWithPagination: UnwrapRef<typeof import('../../utils/supabase-profiles')['readProfilesWithPagination']>
+    readonly readSpecificColumns: UnwrapRef<typeof import('../../utils/supabase-profiles')['readSpecificColumns']>
     readonly readonly: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['readonly']>
     readonly ref: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['ref']>
     readonly refAutoReset: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['refAutoReset']>
@@ -544,6 +569,11 @@ declare module 'vue' {
     readonly shallowReadonly: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.5.18_typescript@5.9.2/node_modules/vue')['shallowRef']>
     readonly showError: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/composables/error')['showError']>
+    readonly subscribeToAllProfileChanges: UnwrapRef<typeof import('../../utils/supabase-profiles')['subscribeToAllProfileChanges']>
+    readonly subscribeToCurrentUserProfile: UnwrapRef<typeof import('../../utils/supabase-profiles')['subscribeToCurrentUserProfile']>
+    readonly subscribeToProfileDeletes: UnwrapRef<typeof import('../../utils/supabase-profiles')['subscribeToProfileDeletes']>
+    readonly subscribeToProfileInserts: UnwrapRef<typeof import('../../utils/supabase-profiles')['subscribeToProfileInserts']>
+    readonly subscribeToProfileUpdates: UnwrapRef<typeof import('../../utils/supabase-profiles')['subscribeToProfileUpdates']>
     readonly syncRef: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['templateRef']>
@@ -565,6 +595,10 @@ declare module 'vue' {
     readonly unrefElement: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['until']>
     readonly updateAppConfig: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/config')['updateAppConfig']>
+    readonly updateCurrentUserGithub: UnwrapRef<typeof import('../../utils/supabase-profiles')['updateCurrentUserGithub']>
+    readonly updateCurrentUserProfile: UnwrapRef<typeof import('../../utils/supabase-profiles')['updateCurrentUserProfile']>
+    readonly updateGithubUrl: UnwrapRef<typeof import('../../utils/profile')['updateGithubUrl']>
+    readonly updateProfilesByName: UnwrapRef<typeof import('../../utils/supabase-profiles')['updateProfilesByName']>
     readonly useActiveElement: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('../../node_modules/.pnpm/@vueuse+core@13.9.0_vue@3.5.18_typescript@5.9.2_/node_modules/@vueuse/core')['useAnimate']>
     readonly useAppConfig: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@4.0.3_@netlify+blobs@9.1.2_@parcel+watcher@2.5.1_@types+node@24.3.0_@vue+compiler-_f7cbb1c9e18e35a242b62a0f59b6e286/node_modules/nuxt/dist/app/config')['useAppConfig']>

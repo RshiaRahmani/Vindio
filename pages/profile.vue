@@ -19,7 +19,7 @@
               <div class="relative">
                 <!-- Main Avatar -->
                 <div class="w-40 h-40 bg-gradient-to-br from-blue-500 to-blue-900  rounded-[2rem] flex items-center justify-center shadow-2xl transform group-hover:scale-105 transition-all duration-500 rotate-3 group-hover:rotate-0">
-                  <span class="text-6xl font-black text-white">{{ getInitials(userProfile.name) }}</span>
+                  <span class="text-6xl font-black text-white">{{ getInitials(userProfile.name) }} </span>
                 </div>
                 
                 <!-- Floating Elements -->
@@ -304,7 +304,10 @@
 <script setup>
 const { $t } = useNuxtApp()
 const { user, updateProfile } = useAuth()
-const { getUserProfile, updateUserProfile, createUserProfile } = useDatabase()
+const { getCurrentProfile, updateUserProfile, createUserProfile } = useDatabase()
+import supabase from '../supabase.ts'
+
+console.log(supabase)
 
 const editMode = ref(false)
 const newSkill = ref('')
@@ -329,24 +332,8 @@ const fetchProfile = async () => {
   error.value = ''
   
   try {
-    console.log('Fetching profile for user:', user.value.id)
-    const { data: profile, error: fetchError } = await getUserProfile(user.value.id)
-    
-    if (fetchError) {
-      console.error('Error fetching profile:', fetchError)
-      // If it's an RLS error, show a fallback profile with user data
-      if (fetchError.includes('row-level security') || fetchError.includes('42501') || fetchError.includes('403')) {
-        console.log('Using fallback profile from user metadata')
-        userProfile.value = {
-          name: user.value.user_metadata?.full_name || user.value.email || 'User',
-          bio: 'This profile exists but cannot be loaded due to database permissions.',
-          github_link: ''
-        }
-      } else {
-        error.value = fetchError
-      }
-      return
-    }
+    console.log('Fetching current user profile using getCurrentProfile')
+    const profile = await getCurrentProfile()
     
     if (profile) {
       console.log('Profile found:', profile)
@@ -368,6 +355,13 @@ const fetchProfile = async () => {
   } catch (err) {
     error.value = 'Failed to load profile'
     console.error('Error fetching profile:', err)
+    
+    // Fallback to user metadata on any error
+    userProfile.value = {
+      name: user.value.user_metadata?.full_name || user.value.email || 'User',
+      bio: 'Error loading profile from database.',
+      github_link: ''
+    }
   } finally {
     loading.value = false
   }

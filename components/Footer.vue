@@ -43,6 +43,6 @@
 </template>
 
 <script setup lang="ts">
-const { $t } = useI18n()
+const { $t } = useNuxtApp()
 const year = new Date().getFullYear()
 </script>

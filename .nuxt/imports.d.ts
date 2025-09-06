@@ -33,6 +33,8 @@ export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { useAuth } from '../composables/useAuth';
 export { useDatabase } from '../composables/useDatabase';
 export { useDatasets } from '../composables/useDatasets';
+export { updateGithubUrl, patchGithubUrl, getCurrentUserProfile } from '../utils/profile';
+export { readAllProfiles, readSpecificColumns, readCurrentUserProfile, readProfilesWithPagination, updateCurrentUserGithub, updateCurrentUserProfile, updateProfilesByName, deleteCurrentUserProfile, deleteProfilesByName, subscribeToAllProfileChanges, subscribeToProfileInserts, subscribeToProfileUpdates, subscribeToProfileDeletes, subscribeToCurrentUserProfile } from '../utils/supabase-profiles';
 export { useSupabaseClient } from '../node_modules/.pnpm/@nuxtjs+supabase@1.6.1/node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseClient';
 export { useSupabaseCookieRedirect } from '../node_modules/.pnpm/@nuxtjs+supabase@1.6.1/node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseCookieRedirect';
 export { useSupabaseSession } from '../node_modules/.pnpm/@nuxtjs+supabase@1.6.1/node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseSession';

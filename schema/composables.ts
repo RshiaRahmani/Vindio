@@ -41,6 +41,16 @@ export const useDatabase = () => {
     }
   }
 
+  // Get current authenticated user's profile
+  const getCurrentProfile = async (): Promise<Profile | null> => {
+    try {
+      return await db.getCurrentProfile()
+    } catch (error) {
+      console.error('Error fetching current user profile:', error)
+      throw error
+    }
+  }
+
   // Project operations
   const getUserProjects = async (userId: string): Promise<Project[]> => {
     try {
@@ -247,6 +257,7 @@ export const useDatabase = () => {
     getUserProfile,
     createUserProfile,
     updateUserProfile,
+    getCurrentProfile,
     
     // Project operations
     getUserProjects,

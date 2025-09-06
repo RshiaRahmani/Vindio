@@ -20,7 +20,7 @@ export class DatabaseQueries {
   async getProfile(userId: string): Promise<Profile | null> {
     const { data, error } = await this.supabase
       .from(TABLES.PROFILES)
-      .select('*')
+      .select('id, full_name, bio, website, created_at')
       .eq('id', userId)
       .single()
 
@@ -31,33 +31,105 @@ export class DatabaseQueries {
       }
       throw error
     }
-    return data
+    
+    // Map database columns to interface
+    return {
+      id: data.id,
+      name: data.full_name,
+      bio: data.bio,
+      github_link: data.website,
+      created_at: data.created_at
+    }
   }
 
   async createProfile(profile: Omit<Profile, 'created_at'>): Promise<Profile> {
+    // Map interface properties to database columns
+    const dbProfile = {
+      id: profile.id,
+      full_name: profile.name,
+      bio: profile.bio,
+      website: profile.github_link,
+      created_at: new Date().toISOString()
+    }
+
     const { data, error } = await this.supabase
       .from(TABLES.PROFILES)
-      .insert({
-        ...profile,
-        created_at: new Date().toISOString()
-      })
-      .select()
+      .insert(dbProfile)
+      .select('id, full_name, bio, website, created_at')
       .single()
 
     if (error) throw error
-    return data
+    
+    // Map back to interface
+    return {
+      id: data.id,
+      name: data.full_name,
+      bio: data.bio,
+      github_link: data.website,
+      created_at: data.created_at
+    }
   }
 
   async updateProfile(userId: string, updates: Partial<Omit<Profile, 'id' | 'created_at'>>): Promise<Profile> {
+    // Map interface properties to database columns
+    const dbUpdates: any = {}
+    if (updates.name !== undefined) dbUpdates.full_name = updates.name
+    if (updates.bio !== undefined) dbUpdates.bio = updates.bio
+    if (updates.github_link !== undefined) dbUpdates.website = updates.github_link
+
     const { data, error } = await this.supabase
       .from(TABLES.PROFILES)
-      .update(updates)
+      .update(dbUpdates)
       .eq('id', userId)
-      .select()
+      .select('id, full_name, bio, website, created_at')
       .single()
 
     if (error) throw error
-    return data
+    
+    // Map back to interface
+    return {
+      id: data.id,
+      name: data.full_name,
+      bio: data.bio,
+      github_link: data.website,
+      created_at: data.created_at
+    }
+  }
+
+  // Get current authenticated user's profile
+  async getCurrentProfile(): Promise<Profile | null> {
+    // 1️⃣ Get the current session – this contains the JWT with the user id
+    const {
+      data: { session },
+      error: sessErr,
+    } = await this.supabase.auth.getSession()
+    
+    if (sessErr) throw sessErr
+    if (!session?.user) return null
+
+    // 2️⃣ Query the `profiles` table for the row whose `id` matches the user id
+    const { data, error } = await this.supabase
+      .from(TABLES.PROFILES)
+      .select('id, full_name, bio, website, created_at') // Use actual column names
+      .eq('id', session.user.id)               // `session.user.id` == auth.uid()
+      .single()                                 // expect only one row
+
+    if (error) {
+      // If no rows found, return null instead of throwing error
+      if (error.code === 'PGRST116' || error.details === 'The result contains 0 rows') {
+        return null
+      }
+      throw error
+    }
+    
+    // Map database columns to interface
+    return {
+      id: data.id,
+      name: data.full_name,
+      bio: data.bio,
+      github_link: data.website,
+      created_at: data.created_at
+    }
   }
 
   // Project queries

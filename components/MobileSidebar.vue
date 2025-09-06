@@ -92,7 +92,7 @@
         </NuxtLink>
 
         <!-- Projects Link -->
-        <NuxtLink
+        <!-- <NuxtLink
           v-if="user"
           to="/projects"
           @click="$emit('close')"
@@ -105,10 +105,10 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
           {{ $t('projects') || 'Projects' }}
-        </NuxtLink>
+        </NuxtLink> -->
 
         <!-- Tasks Link -->
-        <NuxtLink
+        <!-- <NuxtLink
           v-if="user"
           to="/tasks"
           @click="$emit('close')"
@@ -121,10 +121,10 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
           </svg>
           {{ $t('tasks') || 'Tasks' }}
-        </NuxtLink>
+        </NuxtLink> -->
 
         <!-- Settings Link -->
-        <NuxtLink
+        <!-- <NuxtLink
           v-if="user"
           to="/settings"
           @click="$emit('close')"
@@ -138,7 +138,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
           {{ $t('settings') || 'Settings' }}
-        </NuxtLink>
+        </NuxtLink> -->
 
         <!-- Divider -->
         <div v-if="user" class="border-t border-gray-200 dark:border-gray-700 my-4"></div>

@@ -28,7 +28,7 @@
           </div>
           <div class="flex gap-3">
             <button 
-              @click="resetChat" 
+              id="new"
               class="w-12 h-12 rounded-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center justify-center transition-all shadow-sm hover:shadow-md"
               :title="$t('newChat')"
             >
@@ -41,69 +41,13 @@
 
         <!-- Chat Area -->
         <div 
-          ref="chatContainer"
-          class="flex-1 overflow-y-auto bg-gray-100 dark:bg-gray-900/50 transition-colors"
+          id="chatpane"
+          class="flex-1 overflow-y-auto bg-gray-100 dark:bg-gray-900/50 transition-colors px-4 sm:px-8 md:px-16 lg:px-24 py-6"
           role="log" 
           aria-live="polite" 
           :aria-label="$t('chatTranscript')"
         >
-          <div class="px-4 sm:px-8 md:px-16 lg:px-24 py-6">
-          <!-- Day indicator (if needed) -->
-          <div v-if="showDateSeparator" class="sticky top-2 z-10 text-center mb-6">
-            <span class="inline-block px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 shadow-sm">
-              {{ currentDate }}
-            </span>
-          </div>
-
-          <!-- Messages -->
-          <div 
-            v-for="(message, index) in messages" 
-            :key="index"
-            class="flex gap-4 mb-6 items-end animate-fade-in-message"
-            :class="message.role === 'user' ? 'justify-end' : 'justify-start'"
-            :style="`animation-delay: ${index * 0.1}s`"
-          >
-            <!-- Avatar (for assistant messages) -->
-            <div 
-              v-if="message.role === 'assistant'"
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-700 flex items-center justify-center text-lg flex-shrink-0 shadow-sm"
-            >
-              🤖
-            </div>
-
-            <!-- Message bubble -->
-            <div 
-              class="max-w-[75%] px-5 py-4 rounded-3xl whitespace-pre-wrap break-words shadow-sm"
-              :class="message.role === 'user' ? 
-                'bg-blue-600 dark:bg-blue-600 text-white rounded-br-lg' : 
-                'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-bl-lg'"
-            >
-              {{ message.content }}
-            </div>
-
-            <!-- Avatar (for user messages) -->
-            <div 
-              v-if="message.role === 'user'"
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0 shadow-sm"
-            >
-              {{ userInitials }}
-            </div>
-          </div>
-
-          <!-- Typing indicator -->
-          <div v-if="isTyping" class="flex gap-4 mb-6 items-end justify-start animate-fade-in-message">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-700 flex items-center justify-center text-lg shadow-sm">
-              🤖
-            </div>
-            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-3xl rounded-bl-lg px-5 py-4 shadow-sm">
-              <span class="flex gap-1.5 items-center">
-                <i class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"></i>
-                <i class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce" style="animation-delay: 0.15s"></i>
-                <i class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce" style="animation-delay: 0.3s"></i>
-              </span>
-            </div>
-          </div>
-          </div>
+          <!-- Messages will be dynamically added here by vanilla JS -->
         </div>
 
         <!-- Composer -->
@@ -111,23 +55,19 @@
           <div class="px-4 sm:px-8 md:px-16 lg:px-24 py-6 flex gap-4 items-end w-full animate-fade-in-prompt">
             <div class="flex-1 flex gap-3 items-center bg-gray-100 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-3xl px-5 py-4 focus-within:border-blue-500 dark:focus-within:border-blue-400 transition-colors shadow-sm">
             <textarea
-              ref="messageInput"
-              v-model="currentMessage"
+              id="q"
               rows="1"
               :placeholder="$t('aiChatPlaceholder')"
               class="flex-1 border-none outline-none bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 resize-none min-h-6 max-h-32"
-              @keydown="handleKeyDown"
-              @input="adjustTextareaHeight"
             />
           </div>
           <button 
-            @click="sendMessage"
-            :disabled="!currentMessage.trim() || isSendingMessage"
+            id="send"
             class="w-14 h-14 rounded-full border-none bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white text-xl flex items-center justify-center cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
             :title="$t('send')"
           >
-            <span v-if="isSendingMessage">⏳</span>
-            <span v-else>
+            <span id="spin" style="display: none;">⏳</span>
+            <span id="sendLabel">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
               </svg>
@@ -154,32 +94,18 @@
 </template>
 
 <script setup>
+// Import Python AI server configuration
+import { PYTHON_AI_CONFIG } from '~/utils/python-ai-config.js'
+
 // Get the translate function
 const { $t } = useNuxtApp()
 
-// Make sure $t is available in template
-const t = $t
-
-// Authentication check (simplified approach)
+// Authentication check
 const user = useSupabaseUser()
-
-// Handle authentication state
 const isLoading = ref(true)
 const isAuthenticated = ref(false)
-const isSendingMessage = ref(false)
 
-// Reactive data - must be declared before the watcher
-const messages = ref([])
-const currentMessage = ref('')
-const isTyping = ref(false)
-const chatContainer = ref(null)
-const messageInput = ref(null)
-
-// Constants
-const MAX_TURNS = 20
-const LS_KEY = 'vindio.chat.history.v3'
-
-// Simple auth initialization
+// Chat functionality using vanilla JS approach
 onMounted(async () => {
   console.log('AI Chat mounted, checking auth...')
   
@@ -192,18 +118,9 @@ onMounted(async () => {
       console.log('User authenticated:', user.value.email)
       isAuthenticated.value = true
       
-      // Initialize chat after auth
-      loadHistory()
+      // Initialize vanilla JS chat functionality
+      initVanillaChat()
       
-      // Add welcome message if no history
-      if (messages.value.length === 0) {
-        addMessage('assistant', $t('aiWelcomeMessage'))
-      }
-      
-      nextTick(() => {
-        messageInput.value?.focus()
-        scrollToBottom()
-      })
     } else {
       console.log('No user found, redirecting to login')
       navigateTo('/login')
@@ -212,159 +129,268 @@ onMounted(async () => {
   }, 200)
 })
 
-// Watch for user changes to handle navigation back/forth
+// Watch for user changes
 watch(user, (newUser) => {
   if (newUser && !isLoading.value) {
     console.log('User state changed, authenticated:', newUser.email)
     isAuthenticated.value = true
-    
-    // Initialize chat
-    loadHistory()
-    if (messages.value.length === 0) {
-      addMessage('assistant', $t('aiWelcomeMessage'))
-    }
-    
-    nextTick(() => {
-      messageInput.value?.focus()
-      scrollToBottom()
-    })
+    initVanillaChat()
   } else if (!newUser && !isLoading.value) {
     console.log('User logged out, redirecting')
     navigateTo('/login')
   }
 }, { immediate: false })
 
-// Computed
-const showDateSeparator = computed(() => messages.value.length > 0)
-const currentDate = computed(() => {
-  return new Date().toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric',
-    year: 'numeric'
-  })
-})
+// Vanilla JS chat implementation
+function initVanillaChat() {
+  nextTick(() => {
+    const $ = (sel) => document.querySelector(sel);
+    const chatEl = $('#chatpane');
+    const q = $('#q');
+    const sendBtn = $('#send');
+    const spin = $('#spin');
+    const sendLabel = $('#sendLabel');
+    const newBtn = $('#new');
 
-// User display data (same as layout)
-const userInitials = computed(() => {
-  if (!user.value?.email) return 'U'
-  const email = user.value.email
-  const parts = email.split('@')[0].split('.')
-  if (parts.length >= 2) {
-    return (parts[0][0] + parts[1][0]).toUpperCase()
-  }
-  return email[0].toUpperCase()
-})
+    if (!chatEl || !q || !sendBtn || !newBtn) {
+      console.error('Chat elements not found, retrying...');
+      setTimeout(initVanillaChat, 100);
+      return;
+    }
 
-// Message management
-function isValidMessage(msg) {
-  return msg && (msg.role === 'user' || msg.role === 'assistant') && typeof msg.content === 'string'
-}
+    // Disable send until there's text, and toggle on input
+    sendBtn.disabled = true;
+    q.addEventListener('input', () => { 
+      sendBtn.disabled = !q.value.trim(); 
+    });
 
-function saveHistory() {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(messages.value))
-  } catch (error) {
-    console.warn('Failed to save chat history:', error)
-  }
-}
+    const LS_KEY = 'vindio.chat.history.v3';
+    const MAX_TURNS = 20;
+    let convo = [];
 
-function loadHistory() {
-  try {
-    const stored = localStorage.getItem(LS_KEY)
-    if (stored) {
-      const parsed = JSON.parse(stored)
-      if (Array.isArray(parsed)) {
-        messages.value = parsed.filter(isValidMessage)
+    function isMsg(m) {
+      return m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string';
+    }
+
+    function saveHistory() {
+      try { 
+        localStorage.setItem(LS_KEY, JSON.stringify(convo)); 
+      } catch(_) {}
+    }
+
+    function loadHistory() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+        convo = Array.isArray(raw) ? raw.filter(isMsg) : [];
+      } catch(_) { 
+        convo = []; 
       }
     }
-  } catch (error) {
-    console.warn('Failed to load chat history:', error)
-    messages.value = []
-  }
-}
 
-function addMessage(role, content) {
-  messages.value.push({ role, content })
-  saveHistory()
-  nextTick(() => {
-    scrollToBottom()
-  })
-}
+    function addMessage(role, text, ctxItems = null) {
+      const isUser = role === 'user';
+      const row = document.createElement('div');
+      row.className = `flex gap-4 mb-6 items-end animate-fade-in-message ${isUser ? 'justify-end' : 'justify-start'}`;
+      
+      const avatar = document.createElement('div');
+      avatar.className = `w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0 shadow-sm ${
+        isUser 
+          ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold text-sm' 
+          : 'bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-700'
+      }`;
+      avatar.textContent = isUser ? getUserInitials() : '🤖';
+      
+      const bubble = document.createElement('div');
+      bubble.className = `max-w-[75%] px-5 py-4 rounded-3xl whitespace-pre-wrap break-words shadow-sm ${
+        isUser 
+          ? 'bg-blue-600 dark:bg-blue-600 text-white rounded-br-lg' 
+          : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-bl-lg'
+      }`;
+      bubble.textContent = text || '';
+      
+      if (isUser) {
+        row.appendChild(bubble);
+        row.appendChild(avatar);
+      } else {
+        row.appendChild(avatar);
+        row.appendChild(bubble);
+      }
+      
+      chatEl.appendChild(row);
+      
+      if (!isUser && Array.isArray(ctxItems) && ctxItems.length) {
+        const details = document.createElement('details');
+        details.className = 'mt-2 ml-14 text-sm text-gray-600 dark:text-gray-400';
+        const summary = document.createElement('summary');
+        summary.textContent = `Sources (${ctxItems.length})`;
+        summary.className = 'cursor-pointer hover:text-gray-800 dark:hover:text-gray-200';
+        details.appendChild(summary);
+        
+        ctxItems.forEach((line, i) => {
+          const d = document.createElement('div');
+          d.textContent = `[${i + 1}] ${line}`;
+          d.className = 'mt-1 pl-4 text-xs';
+          details.appendChild(d);
+        });
+        
+        chatEl.appendChild(details);
+      }
+      
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
 
-function scrollToBottom() {
-  if (chatContainer.value) {
-    chatContainer.value.scrollTop = chatContainer.value.scrollHeight
-  }
-}
+    function getUserInitials() {
+      if (!user.value?.email) return 'U';
+      const email = user.value.email;
+      const parts = email.split('@')[0].split('.');
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+      return email[0].toUpperCase();
+    }
 
-function adjustTextareaHeight() {
-  const textarea = messageInput.value
-  if (textarea) {
-    textarea.style.height = 'auto'
-    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px'
-  }
-}
+    function renderFromHistory() {
+      chatEl.innerHTML = '';
+      if (convo.length === 0) {
+        addMessage('assistant', $t('aiWelcomeMessage') || "Hello, I'm Vindio AI Software's AI assistant. How can I help you today?");
+        return;
+      }
+      for (const m of convo) { 
+        addMessage(m.role, m.content); 
+      }
+    }
 
-// Chat functionality
-async function sendMessage() {
-  const text = currentMessage.value.trim()
-  if (!text || isSendingMessage.value) return
+    function setSending(sending) {
+      sendBtn.disabled = sending;
+      if (spin) spin.style.display = sending ? 'inline' : 'none';
+      if (sendLabel) sendLabel.style.display = sending ? 'none' : 'inline';
+    }
 
-  // Add user message
-  addMessage('user', text)
-  currentMessage.value = ''
-  adjustTextareaHeight()
-  
-  // Only show typing indicator, not page loading
-  isSendingMessage.value = true
-  isTyping.value = true
+    function showTyping() {
+      const row = document.createElement('div');
+      row.className = 'flex gap-4 mb-6 items-end justify-start animate-fade-in-message';
+      row.dataset.typing = '1';
+      
+      const avatar = document.createElement('div');
+      avatar.className = 'w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-700 flex items-center justify-center text-lg shadow-sm';
+      avatar.textContent = '🤖';
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-3xl rounded-bl-lg px-5 py-4 shadow-sm';
+      
+      const dots = document.createElement('span');
+      dots.className = 'flex gap-1.5 items-center';
+      dots.innerHTML = `
+        <i class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"></i>
+        <i class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce" style="animation-delay: 0.15s"></i>
+        <i class="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce" style="animation-delay: 0.3s"></i>
+      `;
+      
+      bubble.appendChild(dots);
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+      chatEl.appendChild(row);
+      chatEl.scrollTop = chatEl.scrollHeight;
+      return row;
+    }
 
-  try {
-    const response = await $fetch('/api/chat/ask', {
-      method: 'POST',
-      body: { query: text }
-    })
-    
-    isTyping.value = false
-    addMessage('assistant', response.answer || 'Sorry, I didn\'t get a response. Please try again.')
-    
-  } catch (error) {
-    isTyping.value = false
-    console.error('Chat error:', error)
-    const errorMessage = error.data?.message || error.message || 'Something went wrong. Please try again.'
-    addMessage('assistant', `⚠️ Error: ${errorMessage}`)
-  } finally {
-    isSendingMessage.value = false
-    nextTick(() => {
-      messageInput.value?.focus()
-    })
-  }
-}
+    function hideTyping(row) {
+      if (row && row.parentNode) row.parentNode.removeChild(row);
+    }
 
-async function resetChat() {
-  messages.value = []
-  try {
-    localStorage.removeItem(LS_KEY)
-    // Call the reset API
-    await $fetch('/api/chat/reset', { method: 'POST' })
-  } catch (error) {
-    console.warn('Failed to clear chat history:', error)
-  }
-  
-  // Add welcome message
-  addMessage('assistant', $t('aiWelcomeMessage'))
-  
-  currentMessage.value = ''
-  nextTick(() => {
-    messageInput.value?.focus()
-  })
-}
+    async function send() {
+      const text = q.value.trim();
+      if (!text) { 
+        q.focus(); 
+        return; 
+      }
 
-function handleKeyDown(event) {
-  if (event.key === 'Enter' && !event.shiftKey) {
-    event.preventDefault()
-    sendMessage()
-  }
+      // Show user's turn and append to in-memory transcript
+      addMessage('user', text);
+      convo.push({ role: 'user', content: text });
+      saveHistory();
+
+      q.value = '';
+      setSending(true);
+      const typingRow = showTyping();
+
+      try {
+        // Use Python AI server configuration
+        const body = { query: text };
+        const resp = await fetch(PYTHON_AI_CONFIG.getUrl('chat'), {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(PYTHON_AI_CONFIG.timeout)
+        });
+
+        const raw = await (resp.headers.get('content-type')?.includes('json') ? resp.json() : resp.text());
+        if (!resp.ok) {
+          console.error('POST /ask failed:', raw);
+          const msg = typeof raw === 'string' ? raw : (raw.detail || JSON.stringify(raw));
+          throw new Error(msg.slice(0, 300));
+        }
+
+        const answer = raw.answer || raw.response || '(no answer)';
+        hideTyping(typingRow);
+        addMessage('assistant', answer, Array.isArray(raw.context) ? raw.context : []);
+        convo.push({ role: 'assistant', content: answer });
+        saveHistory();
+      } catch (err) {
+        hideTyping(typingRow);
+        console.error(err);
+        const msg = (err && err.message) ? err.message : String(err);
+        addMessage('assistant', `⚠️ Error: ${msg}`);
+        convo.push({ role: 'assistant', content: `⚠️ Error: ${msg}` });
+        saveHistory();
+      } finally {
+        setSending(false);
+        q.dispatchEvent(new Event('input'));
+        q.focus();
+      }
+    }
+
+    async function resetChat() {
+      convo = [];
+      try { 
+        localStorage.removeItem(LS_KEY); 
+      } catch(_) {}
+      
+      // Tell the Python server to clear chat history
+      try { 
+        await fetch(PYTHON_AI_CONFIG.getUrl('reset'), { 
+          method: 'POST', 
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_id: user.value?.id || 'anonymous',
+            session_id: user.value?.email || 'session_' + Date.now()
+          })
+        }); 
+      } catch(_) {}
+      
+      renderFromHistory();
+      q.value = '';
+      q.dispatchEvent(new Event('input'));
+      q.focus();
+    }
+
+    // Event listeners
+    sendBtn.addEventListener('click', send);
+    newBtn.addEventListener('click', resetChat);
+    q.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        send();
+      }
+    });
+
+    // Initialize
+    loadHistory();
+    renderFromHistory();
+    q.focus();
+  });
 }
 
 // SEO

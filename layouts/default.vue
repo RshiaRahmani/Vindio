@@ -10,11 +10,32 @@
       </template>
       </div>
       <div class="flex items-center gap-4">
-        <select v-model="locale" class="border px-2 py-1 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded">
-        <option value="en">EN</option>
-        <option value="tr">TR</option>
-        <option value="ru">RU</option>
-      </select>
+        <div class="relative">
+          <select
+            v-model="selectedLocale"
+            @change="changeLocale"
+            class="bg-white/10 dark:bg-gray-800/50 backdrop-blur-sm text-gray-800 dark:text-white text-sm rounded-full px-3 py-2 border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none cursor-pointer"
+          >
+            <option
+              value="en"
+              class="bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+            >
+              EN
+            </option>
+            <option
+              value="tr"
+              class="bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+            >
+              TR
+            </option>
+            <option
+              value="ru"
+              class="bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+            >
+              RU
+            </option>
+          </select>
+          </div>
       
       <template v-if="authed">
         <!-- User Profile Dropdown -->
@@ -202,6 +223,19 @@ const toggleColorMode = () => {
 }
 const localeCookie = useCookie('locale')
 const locale = computed({ get:()=> localeCookie.value || 'en', set:v=> (localeCookie.value=v) })
+
+// Language selector functionality
+const selectedLocale = ref(localeCookie.value || 'en')
+
+const changeLocale = () => {
+  localeCookie.value = selectedLocale.value
+  // The translations will update automatically since $t is reactive to the locale cookie
+}
+
+// Watch for locale changes and sync selectedLocale
+watch(localeCookie, (newValue) => {
+  selectedLocale.value = newValue || 'en'
+}, { immediate: true })
 
 // Use Supabase authentication instead of custom token
 const user = useSupabaseUser()

@@ -1,9 +1,9 @@
 {
-  "_hash": "1PWgLP3MvbBLAbNcjBq4yiiaBEFVhTE1K9b44uWmNOw",
+  "_hash": "VagZ8WkWocrKDlZ9TVDL657BtsXTkVPS0vraQvEQwx8",
   "project": {
-    "rootDir": "C:/Users/D5/Vindio"
+    "rootDir": "/Users/arshiarah/Documents/GitHub/Vindio1"
   },
   "versions": {
-    "nuxt": "4.1.0"
+    "nuxt": "4.0.3"
   }
 }

@@ -2,8 +2,9 @@
   <div>
    
       <!-- Header Section -->
-      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 relative overflow-hidden">
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
           <div class="text-center">
             <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl">
               {{ $t('datasets.title') }}
@@ -401,5 +402,52 @@ watch(user, (newUser) => {
 /* Custom styles for the page */
 .transform {
   transform: translateZ(0); /* Enable GPU acceleration */
+}
+
+/* Animated floating aura circles */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.03;
+  }
+  25% {
+    transform: translateY(-30px) translateX(20px) scale(1.1);
+    opacity: 0.06;
+  }
+  50% {
+    transform: translateY(-15px) translateX(-25px) scale(0.95);
+    opacity: 0.04;
+  }
+  75% {
+    transform: translateY(-40px) translateX(10px) scale(1.05);
+    opacity: 0.05;
+  }
+}
+
+@keyframes float-medium {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.025;
+  }
+  33% {
+    transform: translateY(-25px) translateX(-30px) scale(1.15);
+    opacity: 0.05;
+  }
+  66% {
+    transform: translateY(-35px) translateX(15px) scale(0.9);
+    opacity: 0.035;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 4s ease-in-out infinite;
 }
 </style>

@@ -1,14 +1,17 @@
 <template>
-  <div class="fixed inset-0 !z-[99] overflow-y-auto">
-    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-      <!-- Background overlay -->
-      <div
-        class="fixed inset-0 transition-opacity bg-gray-900 bg-opacity-50 backdrop-blur-sm"
-        @click="$emit('close')"
-      ></div>
+  <Teleport to="body">
+    <div class="fixed inset-0 overflow-y-auto" style="z-index: 99999 !important;">
+      <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div
+          class="fixed inset-0 transition-opacity bg-gray-900 bg-opacity-50 backdrop-blur-sm"
+          style="z-index: 99998 !important;"
+          @click="$emit('close')"
+        >
+        </div>
 
-      <!-- Modal -->
-      <div class="inline-block w-full max-w-2xl px-0 py-0 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl border border-gray-200">
+        <!-- Modal -->
+        <div class="inline-block w-full max-w-2xl px-0 py-0 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl border border-gray-200 relative" style="z-index: 100000 !important;">
         <!-- Header -->
         <div class="px-8 py-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
           <div class="flex items-center justify-between">
@@ -171,6 +174,7 @@
       </div>
     </div>
   </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -267,3 +271,62 @@ const submitDataset = async () => {
   }
 }
 </script>
+
+<style scoped>
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes float-medium {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.15;
+  }
+  33% {
+    transform: translateY(-15px) translateX(-10px);
+    opacity: 0.3;
+  }
+  66% {
+    transform: translateY(-25px) translateX(8px);
+    opacity: 0.1;
+  }
+}
+
+@keyframes float-fast {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-40px) translateX(-20px);
+    opacity: 0.05;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 4s ease-in-out infinite;
+}
+</style>

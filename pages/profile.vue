@@ -305,9 +305,17 @@
 const { $t } = useNuxtApp()
 const { user, updateProfile } = useAuth()
 const { getCurrentProfile, updateUserProfile, createUserProfile } = useDatabase()
-import supabase from '../supabase.ts'
+const supabase = useSupabaseClient()
 
 console.log(supabase)
+
+// Fetch profiles data
+const { data: profiles, error: profilesError } = await supabase
+  .from('profiles')
+  .select('full_name')
+
+console.log('Profiles data:', profiles)
+console.log('Profiles error:', profilesError)
 
 const editMode = ref(false)
 const newSkill = ref('')

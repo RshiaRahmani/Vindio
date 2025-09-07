@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { patchGithubUrl, getCurrentUserProfile } from '~/utils/profile'
+import { patchGithubUrl, getCurrentUserProfile } from '../utils/profile'
 
 // State
 const profile = ref(null)
